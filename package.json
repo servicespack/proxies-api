@@ -18,5 +18,8 @@
   "homepage": "https://github.com/gabrielrufino/node-proxy#readme",
   "dependencies": {
     "express": "^4.17.1"
+  },
+  "devDependencies": {
+    "dotenv": "^10.0.0"
   }
 }

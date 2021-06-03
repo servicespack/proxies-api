@@ -2,6 +2,9 @@
 
 ![Banner](./assets/banner.png)
 
+* Query param based
+* Procted by [helmet](https://helmetjs.github.io/)
+
 ### Getting started
 
 ##### Testing/Development

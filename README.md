@@ -5,9 +5,7 @@
 * Query param based
 * Procted by [helmet](https://helmetjs.github.io/)
 
-### Getting started
-
-##### Testing/Development
+## Getting started
 
 1. Clone repo and install dependencies
 
@@ -28,3 +26,27 @@ $ npm run dev:setup
 ```bash
 $ npm run dev:start
 ```
+
+## API
+
+These are the routes of the proxy server. **They work with any HTTP method.**
+
+### Ping route
+
+> /
+
+Response:
+
+```json
+{"I":"am alive"}
+```
+
+### Proxy route
+
+> /proxy?url=www.google.com
+
+Response: URL response
+
+## LICENSE
+
+MIT

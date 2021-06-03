@@ -1,0 +1,16 @@
+'use strict'
+
+const express = require('express')
+
+if (process.env.NODE_ENV !== 'production') {
+  const dotenv = require('dotenv')
+  dotenv.config()
+}
+
+const { PORT } = process.env
+
+const app = express()
+
+app.all('/', (_request, response) => response.json({ I: 'am alive' }))
+
+app.listen(PORT, () => console.log(`[Node Proxy] Listening on ${PORT}`))

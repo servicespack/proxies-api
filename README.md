@@ -1,3 +1,3 @@
 # Node Proxy
 
-Proxy made in Node.js
+![Banner](./assets/banner.png)

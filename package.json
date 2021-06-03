@@ -1,0 +1,33 @@
+{
+  "name": "node-proxy",
+  "version": "0.0.1",
+  "description": "Proxy made in Node.js",
+  "main": "index.js",
+  "scripts": {
+    "dev:setup": "cp .env.example .env",
+    "dev:start": "nodemon src/index.js",
+    "start": "pm2-runtime start ecosystem.config.js",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/gabrielrufino/node-proxy.git"
+  },
+  "author": "Gabriel Rufino <contato@gabrielrufino.com>",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/gabrielrufino/node-proxy/issues"
+  },
+  "homepage": "https://github.com/gabrielrufino/node-proxy#readme",
+  "dependencies": {
+    "cors": "^2.8.5",
+    "express": "^4.17.1",
+    "express-http-proxy": "^1.6.2",
+    "helmet": "^4.6.0",
+    "pm2": "^4.5.6"
+  },
+  "devDependencies": {
+    "dotenv": "^10.0.0",
+    "nodemon": "^2.0.7"
+  }
+}

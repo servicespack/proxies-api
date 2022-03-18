@@ -14,7 +14,14 @@ const app = express()
 
 app.use(helmet())
 app.use(cors())
-app.all('/', (_request, response) => response.json({ I: 'am alive' }))
-app.use('/proxy', proxy((request) => request.query.url))
+app.all('/healthcheck', (_request, response) => response.json({ I: 'am alive' }))
+app.all(
+  '/',
+  (request, _, next) => {
+    console.log(`[Node Proxy] Request from ${request.socket.remoteAddress}`)
+    next()
+  },
+  proxy((request) => request.query.url)
+)
 
 app.listen(PORT, () => console.log(`[Node Proxy] Listening on ${PORT}`))

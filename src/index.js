@@ -1,14 +1,12 @@
 'use strict'
 
 const cors = require('cors')
+const dotenv = require('dotenv')
 const express = require('express')
 const helmet = require('helmet')
 const proxy = require('express-http-proxy')
 
-if (process.env.NODE_ENV !== 'production') {
-  const dotenv = require('dotenv')
-  dotenv.config()
-}
+dotenv.config()
 
 const { PORT } = process.env
 

@@ -14,9 +14,9 @@ const app = express()
 
 app.use(helmet())
 app.use(cors())
-app.all('/healthcheck', (_request, response) => response.json({ I: 'am alive' }))
+app.all('/', (_request, response) => response.json({ I: 'am alive' }))
 app.all(
-  '/',
+  '/proxy',
   (request, _, next) => {
     console.log(`[Node Proxy] Request from ${request.socket.remoteAddress}`)
     next()

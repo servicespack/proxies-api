@@ -3,7 +3,7 @@ name: Node Proxy CI
 on:
   - push
   - pull_request
-  - workflow_dispatch:
+  - workflow_dispatch
 
 jobs:
   linting:

@@ -31,7 +31,8 @@
   "devDependencies": {
     "dotenv": "^16.0.2",
     "nodemon": "^2.0.19",
-    "rimraf": "^3.0.2"
+    "rimraf": "^3.0.2",
+    "standard": "^17.0.0"
   },
   "funding": "https://github.com/sponsors/gabrielrufino"
 }

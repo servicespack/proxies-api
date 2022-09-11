@@ -7,7 +7,7 @@
   "type": "module",
   "scripts": {
     "dev:setup": "cp .env.example .env",
-    "dev:start": "nodemon src/index.js",
+    "dev:start": "nodemon src/index.js --config nodemon.json",
     "lint": "npx standard",
     "lint:fix": "npm run lint -- --fix",
     "start": "pm2-runtime start ecosystem.config.js",

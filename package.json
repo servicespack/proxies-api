@@ -4,6 +4,7 @@
   "private": true,
   "description": "Proxy made in Node.js",
   "main": "src/index.js",
+  "type": "module",
   "scripts": {
     "dev:setup": "cp .env.example .env",
     "dev:start": "nodemon src/index.js",

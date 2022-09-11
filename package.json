@@ -31,6 +31,7 @@
     "express-http-proxy": "^1.6.3",
     "helmet": "^6.0.0",
     "lowdb": "^3.0.0",
+    "pino": "^8.5.0",
     "pm2": "^5.2.0"
   },
   "devDependencies": {

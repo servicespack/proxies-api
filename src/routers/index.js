@@ -1,4 +1,4 @@
-import { proxies } from './proxies.js'
+import { proxies } from './proxies.router.js'
 
 export class Routers {
   static proxies = proxies

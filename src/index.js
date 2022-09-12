@@ -1,27 +1,48 @@
 'use strict'
 
-const cors = require('cors')
-const dotenv = require('dotenv')
-const express = require('express')
-const helmet = require('helmet')
-const proxy = require('express-http-proxy')
+import cors from 'cors'
+import dotenv from 'dotenv'
+import express from 'express'
+import helmet from 'helmet'
+import pino from 'pino-http'
+import proxy from 'express-http-proxy'
 
-dotenv.config()
+import { ProxiesEmitter } from './emitters/proxies.emitter.js'
+import { Routers } from './routers/index.js'
+import { auth } from './middlewares/auth.middleware.js'
+import { db } from './db.js'
+import { logger } from './logger.js'
 
-const { PORT } = process.env
+async function main () {
+  dotenv.config()
+  const { PORT, TOKEN } = process.env
 
-const app = express()
+  await db.read()
+  db.data ||= { proxies: [] }
+  await db.write()
 
-app.use(helmet())
-app.use(cors())
-app.all('/', (_request, response) => response.json({ I: 'am alive' }))
-app.all(
-  '/proxy',
-  (request, _, next) => {
-    console.log(`[Node Proxy] Request from ${request.socket.remoteAddress}`)
-    next()
-  },
-  proxy((request) => request.query.url)
-)
+  const app = express()
 
-app.listen(PORT, () => console.log(`[Node Proxy] Listening on ${PORT}`))
+  app.use(cors())
+  app.use(express.json())
+  app.use(helmet())
+  app.use(pino())
+
+  app.get('/health', (_request, response) => response.json({ I: 'am alive' }))
+  app.use('/proxies', auth({ token: TOKEN }), Routers.proxies)
+
+  for (const { namespace, target } of db.data.proxies) {
+    app.use(namespace, proxy(target))
+  }
+
+  ProxiesEmitter.emitter.on(
+    ProxiesEmitter.Events.NEW_PROXY,
+    ({ namespace, target }) => {
+      app.use(namespace, proxy(target))
+    }
+  )
+
+  app.listen(PORT, () => logger.info(`Listening on ${PORT}`))
+}
+
+main()

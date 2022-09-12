@@ -2,7 +2,8 @@
 
 ![Banner](./assets/banner.png)
 
-* Query param based
+* Reverse proxy
+* Create proxies dynamically
 * Procted by [helmet](https://helmetjs.github.io/)
 
 ## Getting started
@@ -10,30 +11,30 @@
 1. Clone repo and install dependencies
 
 ```bash
-$ git clone https://github.com/gabrielrufino/node-proxy
-$ cd node-proxy
-$ npm ci
+git clone https://github.com/gabrielrufino/node-proxy
+cd node-proxy
+npm ci
 ```
 
 2. Setup environment
 
 ```bash
-$ npm run dev:setup
+npm run dev:setup
 ```
 
 3. Start service
 
 ```bash
-$ npm run dev:start
+npm run dev:start
 ```
 
 ## API
 
-These are the routes of the proxy server. **They work with any HTTP method.**
+These are the routes of the proxy server.
 
 ### Ping route
 
-> /
+> GET /health
 
 Response:
 
@@ -41,11 +42,16 @@ Response:
 {"I":"am alive"}
 ```
 
-### Proxy route
+### Create a proxy
 
-> /proxy?url=www.google.com
+> POST /proxies
 
-Response: URL response
+```json
+{
+  "namespace": "users",
+  "target": "https://users.yourmicroservices.dev"
+}
+```
 
 ## LICENSE
 

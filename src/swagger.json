@@ -4,6 +4,58 @@
     "title": "Node Proxy API"
   },
   "servers": [],
+  "components": {
+    "securitySchemes": {
+      "Token": {
+        "type": "apiKey",
+        "in": "query",
+        "name": "token"
+      }
+    },
+    "parameters": {
+      "proxyId": {
+        "in": "path",
+        "name": "proxyId",
+        "schema": {
+          "type": "string"
+        },
+        "required": true
+      }
+    },
+    "schemas": {
+      "ProxyParams": {
+        "type": "object",
+        "required": [
+          "namespace",
+          "target"
+        ],
+        "properties": {
+          "namespace": {
+            "type": "string"
+          },
+          "target": {
+            "type": "string"
+          }
+        }
+      },
+      "Proxy": {
+        "allOf": [
+          { "$ref": "#/components/schemas/ProxyParams" },
+          {
+            "type": "object",
+            "properties": {
+              "id": {
+                "type": "string"
+              },
+              "createdAt": {
+                "type": "string"
+              }
+            }
+          }
+        ]
+      }
+    }
+  },
   "paths": {
     "/health": {
       "get": {
@@ -17,41 +69,106 @@
         }
       }
     },
-    "proxies": {
-      "get": {
-        "tags": ["Proxies"]
-      },
-      "post": {
-        "tags": ["Proxies"]
-      }
-    },
-    "proxies/{proxyId}": {
+    "/proxies": {
       "get": {
         "tags": ["Proxies"],
-        "parameters": [
-          {
-            "in": "path",
-            "name": "proxyId"
+        "security": [{ "Token": [] }],
+        "responses": {
+          "200": {
+            "content": {
+              "application/json": {}
+            }
           }
-        ]
+        }
+      },
+      "post": {
+        "tags": ["Proxies"],
+        "security": [{ "Token": [] }],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/ProxyParams"
+              }
+            }
+          }
+        },
+        "responses": {
+          "201": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Proxy"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/proxies/{proxyId}": {
+      "get": {
+        "tags": ["Proxies"],
+        "security": [{ "Token": [] }],
+        "parameters": [
+          { "$ref": "#/components/parameters/proxyId" }
+        ],
+        "responses": {
+          "200": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Proxy"
+                }
+              }
+            }
+          }
+        }
       },
       "patch": {
         "tags": ["Proxies"],
+        "security": [{ "Token": [] }],
         "parameters": [
-          {
-            "in": "path",
-            "name": "proxyId"
+          { "$ref": "#/components/parameters/proxyId" }
+        ],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/ProxyParams"
+              }
+            }
           }
-        ]
+        },
+        "responses": {
+          "200": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Proxy"
+                }
+              }
+            }
+          }
+        }
       },
       "delete": {
         "tags": ["Proxies"],
+        "security": [{ "Token": [] }],
         "parameters": [
-          {
-            "in": "path",
-            "name": "proxyId"
+          { "$ref": "#/components/parameters/proxyId" }
+        ],
+        "responses": {
+          "200": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Proxy"
+                }
+              }
+            }
           }
-        ]
+        }
       }
     }
   }

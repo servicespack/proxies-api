@@ -1,0 +1,58 @@
+{
+  "openapi": "3.0.3",
+  "info": {
+    "title": "Node Proxy API"
+  },
+  "servers": [],
+  "paths": {
+    "/health": {
+      "get": {
+        "tags": ["Health"],
+        "responses": {
+          "200": {
+            "content": {
+              "application/json": {}
+            }
+          }
+        }
+      }
+    },
+    "proxies": {
+      "get": {
+        "tags": ["Proxies"]
+      },
+      "post": {
+        "tags": ["Proxies"]
+      }
+    },
+    "proxies/{proxyId}": {
+      "get": {
+        "tags": ["Proxies"],
+        "parameters": [
+          {
+            "in": "path",
+            "name": "proxyId"
+          }
+        ]
+      },
+      "patch": {
+        "tags": ["Proxies"],
+        "parameters": [
+          {
+            "in": "path",
+            "name": "proxyId"
+          }
+        ]
+      },
+      "delete": {
+        "tags": ["Proxies"],
+        "parameters": [
+          {
+            "in": "path",
+            "name": "proxyId"
+          }
+        ]
+      }
+    }
+  }
+}

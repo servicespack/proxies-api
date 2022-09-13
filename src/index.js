@@ -1,5 +1,3 @@
-'use strict'
-
 import cors from 'cors'
 import dotenv from 'dotenv'
 import express from 'express'
@@ -30,6 +28,7 @@ async function main () {
 
   app.get('/health', (_request, response) => response.json({ I: 'am alive' }))
   app.use('/proxies', auth({ token: TOKEN }), Routers.proxies)
+  app.use('/', Routers.docs)
 
   for (const { namespace, target } of db.data.proxies) {
     app.use(namespace, proxy(target))

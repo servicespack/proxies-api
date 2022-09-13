@@ -11,7 +11,7 @@
     "lint": "npx standard",
     "lint:fix": "npm run lint -- --fix",
     "start": "pm2-runtime start ecosystem.config.js",
-    "test": "echo \"Error: no test specified\" && exit 1",
+    "test": "jest",
     "reinstall": "npx rimraf node_modules && npm ci"
   },
   "repository": {

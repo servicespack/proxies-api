@@ -11,22 +11,24 @@ const swaggerJson = require(join('..', 'swagger.json'))
 
 const router = Router()
 
-router
-  .use(
-    swaggerUI.serve,
-    swaggerUI.setup({
-      ...swaggerJson,
-      info: {
-        ...swaggerJson.info,
-        version: packageJson.version
-      },
-      servers: [
-        ...swaggerJson.servers,
-        {
-          url: 'http://localhost:3000'
-        }
-      ]
-    })
-  )
+if (process.env.ENABLE_SWAGGER === 'true') {
+  router
+    .use(
+      swaggerUI.serve,
+      swaggerUI.setup({
+        ...swaggerJson,
+        info: {
+          ...swaggerJson.info,
+          version: packageJson.version
+        },
+        servers: [
+          ...swaggerJson.servers,
+          {
+            url: 'http://localhost:3000'
+          }
+        ]
+      })
+    )
+}
 
 export const docs = router

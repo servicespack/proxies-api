@@ -7,10 +7,10 @@
   "type": "module",
   "scripts": {
     "dev:setup": "cp .env.example .env",
-    "dev:start": "nodemon src/index.js --config nodemon.json",
+    "dev:start": "dotenv nodemon src/index.js --config nodemon.json",
     "lint": "npx standard",
     "lint:fix": "npm run lint -- --fix",
-    "start": "pm2-runtime start ecosystem.config.js",
+    "start": "dotenv pm2-runtime start ecosystem.config.js",
     "test": "jest",
     "reinstall": "npx rimraf node_modules && npm ci"
   },

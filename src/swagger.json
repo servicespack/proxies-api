@@ -54,6 +54,24 @@
           }
         ]
       }
+    },
+    "errors": {
+      "NotFound": {
+        "type": "object",
+        "properties": {
+          "error": {
+            "example": "Not found"
+          }
+        }
+      },
+      "Unauthorized": {
+        "type": "object",
+        "properties": {
+          "error": {
+            "example": "Unauthorized"
+          }
+        }
+      }
     }
   },
   "paths": {
@@ -77,6 +95,15 @@
           "200": {
             "content": {
               "application/json": {}
+            }
+          },
+          "401": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/errors/Unauthorized"
+                }
+              }
             }
           }
         }
@@ -102,6 +129,15 @@
                 }
               }
             }
+          },
+          "401": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/errors/Unauthorized"
+                }
+              }
+            }
           }
         }
       }
@@ -119,6 +155,24 @@
               "application/json": {
                 "schema": {
                   "$ref": "#/components/schemas/Proxy"
+                }
+              }
+            }
+          },
+          "401": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/errors/Unauthorized"
+                }
+              }
+            }
+          },
+          "404": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/errors/NotFound"
                 }
               }
             }
@@ -149,6 +203,24 @@
                 }
               }
             }
+          },
+          "401": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/errors/Unauthorized"
+                }
+              }
+            }
+          },
+          "404": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/errors/NotFound"
+                }
+              }
+            }
           }
         }
       },
@@ -164,6 +236,24 @@
               "application/json": {
                 "schema": {
                   "$ref": "#/components/schemas/Proxy"
+                }
+              }
+            }
+          },
+          "401": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/errors/Unauthorized"
+                }
+              }
+            }
+          },
+          "404": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/errors/NotFound"
                 }
               }
             }

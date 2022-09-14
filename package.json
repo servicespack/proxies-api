@@ -41,7 +41,8 @@
     "nodemon": "^2.0.19",
     "pino-pretty": "^9.1.0",
     "rimraf": "^3.0.2",
-    "standard": "^17.0.0"
+    "standard": "^17.0.0",
+    "supertest": "^6.2.4"
   },
   "funding": "https://github.com/sponsors/gabrielrufino"
 }

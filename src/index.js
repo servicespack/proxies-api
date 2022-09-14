@@ -4,7 +4,6 @@ import helmet from 'helmet'
 import pino from 'pino-http'
 import proxy from 'express-http-proxy'
 
-import { ProxiesEmitter } from './emitters/proxies.emitter.js'
 import { Routers } from './routers/index.js'
 import { auth } from './middlewares/auth.middleware.js'
 import { db } from './db.js'
@@ -34,18 +33,15 @@ async function main () {
 
   app.get('/health', (_request, response) => response.json({ I: 'am alive' }))
   app.use('/proxies', auth({ token: TOKEN }), Routers.proxies)
+  app.use('/:namespace', proxy(request => {
+    const { target } = db
+      .data
+      .proxies
+      .find(({ namespace }) => namespace === request.params.namespace)
+
+    return target
+  }))
   app.use('/', Routers.docs)
-
-  for (const { namespace, target } of db.data.proxies) {
-    app.use(namespace, proxy(target))
-  }
-
-  ProxiesEmitter.emitter.on(
-    ProxiesEmitter.Events.NEW_PROXY,
-    ({ namespace, target }) => {
-      app.use(namespace, proxy(target))
-    }
-  )
 
   app.listen(PORT, () => logger.info(`Listening on ${PORT}`))
 }

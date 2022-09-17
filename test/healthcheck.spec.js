@@ -1,17 +1,20 @@
 import request from 'supertest'
-import { describe, it } from '@jest/globals'
+import { beforeEach, describe, it } from '@jest/globals'
+import {  } from 'module'
 
-describe('healthcheck', () => {
+import { loadApp } from './helpers/load-app.js'
+
+describe('Healthcheck', () => {
   /**
    * @type {import('express').Express}
    */
   let app
 
   beforeEach(async () => {
-    app = (await import('../src/app')).app
+    app = await loadApp()
   })
 
-  it('Should return the healthcheck', () => {
+  it('Should return the healthcheck correctly', () => {
     return request(app)
       .get('/')
       .expect(200, {

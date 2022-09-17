@@ -1,6 +1,6 @@
 import request from 'supertest'
 import { beforeEach, describe, it } from '@jest/globals'
-import {  } from 'module'
+import { } from 'module'
 
 import { loadApp } from './helpers/load-app.js'
 

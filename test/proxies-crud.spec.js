@@ -23,6 +23,8 @@ describe.skip('Proxies CRUD', () => {
 
     app = await loadApp()
     db = await loadDb()
+
+    console.log(db)
   })
 
   describe('POST /proxies', () => {

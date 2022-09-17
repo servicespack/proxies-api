@@ -16,6 +16,6 @@ export function auth (params) {
       })
     }
 
-    next()
+    return next()
   }
 }

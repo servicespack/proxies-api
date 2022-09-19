@@ -38,4 +38,7 @@ app.use('/:namespace', proxy(request => {
   return target
 }))
 
+/**
+ * @type {import('http').Server}
+ */
 export const server = http.createServer(app)

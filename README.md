@@ -5,6 +5,7 @@
 * Reverse proxy
 * Create proxies dynamically
 * Procted by [helmet](https://helmetjs.github.io/)
+* Graceful Shutdown
 
 ## Getting started
 

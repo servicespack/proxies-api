@@ -1,8 +1,7 @@
-import { randomUUID } from 'crypto'
-
 import { Router } from 'express'
 
 import { ProxiesEmitter } from '../emitters/proxies.emitter.js'
+import { ProxyEntity } from '../entities/proxy.entity.js'
 import { db } from '../db.js'
 
 const router = Router()
@@ -17,12 +16,7 @@ if (process.env.ENABLE_PROXIES_CRUD === 'true') {
     .post('/', async (request, response) => {
       const { namespace, target } = request.body
 
-      const proxy = {
-        id: randomUUID(),
-        namespace,
-        target,
-        createdAt: new Date().toISOString()
-      }
+      const proxy = new ProxyEntity({ namespace, target })
       db.data.proxies.push(proxy)
       await db.write()
 

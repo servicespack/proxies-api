@@ -1,21 +1,20 @@
 import request from 'supertest'
 import { beforeEach, describe, it } from '@jest/globals'
-import { } from 'module'
 
-import { loadApp } from './helpers/load-app.js'
+import { loadServer } from './helpers/load-server.js'
 
 describe('Healthcheck', () => {
   /**
-   * @type {import('express').Express}
+   * @type {import('http').Server}
    */
-  let app
+  let server
 
   beforeEach(async () => {
-    app = await loadApp()
+    server = await loadServer()
   })
 
   it('Should return the healthcheck correctly', () => {
-    return request(app)
+    return request(server)
       .get('/')
       .expect(200, {
         I: 'am alive'

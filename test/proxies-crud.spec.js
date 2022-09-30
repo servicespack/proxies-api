@@ -2,14 +2,14 @@ import request from 'supertest'
 import { beforeEach, describe, it } from '@jest/globals'
 import { faker } from '@faker-js/faker'
 
-import { loadApp } from './helpers/load-app'
 import { loadDb } from './helpers/load-db'
+import { loadServer } from './helpers/load-server'
 
 describe.skip('Proxies CRUD', () => {
   /**
-   * @type {import('express').Express}
+   * @type {import('http').Server}
    */
-  let app
+  let server
   /**
    * @type {import('lowdb').Low}
    */
@@ -21,7 +21,7 @@ describe.skip('Proxies CRUD', () => {
       TOKEN: faker.lorem.word()
     }
 
-    app = await loadApp()
+    server = await loadServer()
     db = await loadDb()
 
     console.log(db)
@@ -29,7 +29,7 @@ describe.skip('Proxies CRUD', () => {
 
   describe('POST /proxies', () => {
     it('Should return status code 201', () => {
-      return request(app)
+      return request(server)
         .post(`/proxies?token=${process.env.TOKEN}`)
         .send({
           namespace: faker.internet.domainWord(),

@@ -5,7 +5,7 @@
 export function auth (params) {
   /**
    * @param {import('express').Request} request
-   * @param {import('express').Response} _response
+   * @param {import('express').Response} response
    * @param {import('express').NextFunction} next
    */
   return function (request, response, next) {

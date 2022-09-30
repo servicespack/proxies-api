@@ -1,6 +1,7 @@
 import cors from 'cors'
 import express from 'express'
 import helmet from 'helmet'
+import http from 'http'
 import pino from 'pino-http'
 import proxy from 'express-http-proxy'
 
@@ -10,7 +11,7 @@ import { db } from './db.js'
 
 const { TOKEN } = process.env
 
-export const app = express()
+const app = express()
 
 app.use(cors())
 app.use(express.json())
@@ -36,3 +37,8 @@ app.use('/:namespace', proxy(request => {
 
   return target
 }))
+
+/**
+ * @type {import('http').Server}
+ */
+export const server = http.createServer(app)

@@ -1,6 +1,7 @@
 import { Router } from 'express'
 
 import { ProxiesEmitter } from '../emitters/proxies.emitter.js'
+import { ProxiesValidator } from '../validators/proxies.validator.js'
 import { ProxyEntity } from '../entities/proxy.entity.js'
 import { db } from '../db.js'
 
@@ -13,7 +14,7 @@ if (process.env.ENABLE_PROXIES_CRUD === 'true') {
         data: db.data.proxies
       })
     })
-    .post('/', async (request, response) => {
+    .post('/', ProxiesValidator.create, async (request, response) => {
       const { namespace, target } = request.body
 
       const proxy = new ProxyEntity({ namespace, target })
@@ -33,7 +34,7 @@ if (process.env.ENABLE_PROXIES_CRUD === 'true') {
 
       return response.json(proxy)
     })
-    .patch('/:proxyId', async (request, response) => {
+    .patch('/:proxyId', ProxiesValidator.update, async (request, response) => {
       const { proxyId } = request.params
       const proxyIndex = db.data.proxies.findIndex(({ id }) => id === proxyId)
       const NOT_FOUND_INDEX = -1

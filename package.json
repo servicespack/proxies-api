@@ -1,6 +1,6 @@
 {
   "name": "node-proxy",
-  "version": "4.2.0",
+  "version": "4.3.0",
   "private": true,
   "description": "Proxy made in Node.js",
   "main": "src/index.js",
@@ -36,6 +36,7 @@
     "pino": "^8.6.0",
     "pino-http": "^8.2.0",
     "pm2": "^5.2.0",
+    "prom-client": "^14.1.0",
     "swagger-ui-express": "^4.5.0"
   },
   "devDependencies": {

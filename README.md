@@ -4,6 +4,7 @@
 
 * Reverse proxy
 * Create proxies dynamically
+* Prometheus metrics
 * Procted by [helmet](https://helmetjs.github.io/)
 * Graceful Shutdown
 

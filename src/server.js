@@ -29,6 +29,7 @@ app.use(pino({
 
 app.get('/', (_request, response) => response.json({ I: 'am alive' }))
 app.use('/docs', Routers.docs)
+app.use('/metrics', Routers.metrics)
 app.use('/proxies', auth({ token: TOKEN }), Routers.proxies)
 app.use('/:namespace', proxy(request => {
   const { target } = db

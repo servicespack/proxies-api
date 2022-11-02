@@ -1,7 +1,8 @@
 import { dirname, join } from 'node:path'
 import { fileURLToPath } from 'node:url'
 
-import { JSONFile, Low } from 'lowdb'
+import { Low } from 'lowdb'
+import { JSONFile } from 'lowdb/node'
 
 const __dirname = dirname(fileURLToPath(import.meta.url))
 

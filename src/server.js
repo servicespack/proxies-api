@@ -37,6 +37,10 @@ app.use('/:namespace', proxy(request => {
     .proxies
     .find(({ namespace }) => namespace === request.params.namespace) || {}
 
+  if (!target) {
+    throw JSON.stringify({ error: 'Namespace not found' })
+  }
+
   return target
 }))
 

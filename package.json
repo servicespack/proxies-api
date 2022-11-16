@@ -12,6 +12,7 @@
     "lint:fix": "npm run lint -- --fix",
     "start": "dotenv pm2-runtime start ecosystem.config.js",
     "test": "NODE_OPTIONS=--experimental-vm-modules jest",
+    "test:cov": "npm run test -- --coverage",
     "test:watch": "npm run test -- --watch",
     "reinstall": "npx rimraf node_modules && npm ci"
   },

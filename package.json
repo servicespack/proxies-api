@@ -29,26 +29,26 @@
   "dependencies": {
     "cors": "^2.8.5",
     "dotenv-cli": "^6.0.0",
-    "express": "^4.18.1",
+    "express": "^4.18.2",
     "express-http-proxy": "^1.6.3",
     "express-validator": "^6.14.2",
-    "helmet": "^6.0.0",
+    "helmet": "^6.0.1",
     "lowdb": "^5.0.5",
-    "pino": "^8.6.0",
-    "pino-http": "^8.2.0",
-    "pm2": "^5.2.0",
+    "pino": "^8.7.0",
+    "pino-http": "^8.2.1",
+    "pm2": "^5.2.2",
     "prom-client": "^14.1.0",
-    "swagger-ui-express": "^4.5.0"
+    "swagger-ui-express": "^4.6.0"
   },
   "devDependencies": {
-    "@faker-js/faker": "^7.5.0",
-    "jest": "^29.0.3",
+    "@faker-js/faker": "^7.6.0",
+    "jest": "^29.3.1",
     "jsdoc": "^4.0.0",
     "nodemon": "^2.0.20",
-    "pino-pretty": "^9.1.0",
+    "pino-pretty": "^9.1.1",
     "rimraf": "^3.0.2",
     "standard": "^17.0.0",
-    "supertest": "^6.2.4"
+    "supertest": "^6.3.3"
   },
   "funding": "https://github.com/sponsors/gabrielrufino"
 }

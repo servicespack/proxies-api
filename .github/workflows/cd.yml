@@ -14,10 +14,8 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v3
-      - name: Get package version
-        run: PACKAGE_VERSION=$(npm pkg get version | sed 's/"//g')
       - name: Build image
-        run: docker image build -t gabrielrufino/node-proxy:$PACKAGE_VERSION .
+        run: docker image build -t gabrielrufino/node-proxy:$(npm pkg get version | sed 's/"//g') .
       - name: Log in docker hub
         run: docker login -u gabrielrufino -p ${{ secrets.DOCKER_HUB_TOKEN }}
       - name: Publish image

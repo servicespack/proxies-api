@@ -10,33 +10,24 @@
 
 ## Getting started
 
-1. Clone repo and install dependencies
+Start a proxy usig docker:
 
 ```bash
-git clone https://github.com/gabrielrufino/node-proxy
-cd node-proxy
-npm ci
-```
-
-2. Setup environment
-
-```bash
-npm run dev:setup
-```
-
-3. Start service
-
-```bash
-npm run dev:start
+docker container run \
+  -p 3000:3000 \
+  -v "node-proxy:/usr/src/app/" \
+  -e NODE_ENV=production \
+  --name node-proxy \
+  gabrielrufino/node-proxy
 ```
 
 ## API
 
-These are the routes of the proxy server.
+These are one of the routes for managing the proxy server. You can see the rest of them in the swagger docs.
 
 ### Ping route
 
-> GET /health
+> GET /
 
 Response:
 

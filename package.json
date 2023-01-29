@@ -1,6 +1,6 @@
 {
   "name": "node-proxy",
-  "version": "4.3.9",
+  "version": "4.3.10",
   "private": true,
   "description": "Proxy made in Node.js",
   "main": "src/index.js",
@@ -10,7 +10,7 @@
     "dev:start": "dotenv nodemon src/index.js --config nodemon.json",
     "lint": "npx standard",
     "lint:fix": "npm run lint -- --fix",
-    "start": "dotenv pm2-runtime start ecosystem.config.js",
+    "start": "dotenv node src/index.js",
     "test": "NODE_OPTIONS=--experimental-vm-modules jest",
     "test:cov": "npm run test -- --coverage",
     "test:watch": "npm run test -- --watch",
@@ -36,7 +36,6 @@
     "lowdb": "^5.0.5",
     "pino": "^8.8.0",
     "pino-http": "^8.3.1",
-    "pm2": "^5.2.2",
     "prom-client": "^14.1.1",
     "swagger-ui-express": "^4.6.0"
   },

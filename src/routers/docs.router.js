@@ -11,7 +11,9 @@ const swaggerJson = require(join('..', 'swagger.json'))
 
 const router = Router()
 
-if (process.env.ENABLE_SWAGGER === 'true') {
+const { ENABLE_SWAGGER = 'true' } = process.env
+
+if (ENABLE_SWAGGER === 'true') {
   router
     .use(
       swaggerUI.serve,

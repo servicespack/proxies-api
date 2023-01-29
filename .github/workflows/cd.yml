@@ -15,8 +15,14 @@ jobs:
     steps:
       - uses: actions/checkout@v3
       - name: Build image
-        run: docker image build -t gabrielrufino/node-proxy:$(npm pkg get version | sed 's/"//g') .
+        run: docker image build -t gabrielrufino/node-prox -t gabrielrufino/node-proxy:$(npm pkg get version | sed 's/"//g') .
       - name: Log in docker hub
         run: docker login -u gabrielrufino -p ${{ secrets.DOCKER_HUB_TOKEN }}
       - name: Publish image
         run: docker image push -a gabrielrufino/node-proxy
+      - name: Set docker hub description
+        uses: peter-evans/dockerhub-description@v3
+        with:
+          username: gabrielrufino
+          password: ${{ secrets.DOCKER_HUB_TOKEN }}
+          repository: gabrielrufino/node-proxy

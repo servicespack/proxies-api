@@ -4,7 +4,7 @@ import { logger } from './logger.js'
 import { server } from './server.js'
 
 async function main () {
-  const { PORT } = process.env
+  const { PORT = 3000 } = process.env
 
   await db.read()
   db.data ||= { proxies: [] }

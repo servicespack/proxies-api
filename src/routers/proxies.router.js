@@ -7,7 +7,9 @@ import { db } from '../db.js'
 
 const router = Router()
 
-if (process.env.ENABLE_PROXIES_CRUD === 'true') {
+const { ENABLE_PROXIES_CRUD = 'true' } = process.env
+
+if (ENABLE_PROXIES_CRUD === 'true') {
   router
     .get('/', (_request, response) => {
       return response.json({

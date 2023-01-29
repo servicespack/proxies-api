@@ -6,7 +6,9 @@ const router = Router()
 
 prometheus.collectDefaultMetrics({ register })
 
-if (process.env.ENABLE_METRICS_ROUTER === 'true') {
+const { ENABLE_METRICS_ROUTER = 'false' } = process.env
+
+if (ENABLE_METRICS_ROUTER === 'true') {
   router
     .get('/', async (_request, response) => {
       const metrics = await register.metrics()

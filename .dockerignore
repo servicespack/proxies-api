@@ -1,0 +1,10 @@
+# Folders
+assets
+coverage
+test
+
+# Files
+Dockerfile
+config.json
+jest.config.js
+nodemon.json

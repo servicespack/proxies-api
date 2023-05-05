@@ -6,10 +6,10 @@
   "main": "src/index.js",
   "type": "module",
   "scripts": {
-    "dev:start": "nodemon --exec 'npm start' --config nodemon.json",
     "lint": "npx standard",
     "lint:fix": "npm run lint -- --fix",
     "start": "node -r dotenv/config src/index.js",
+    "start:dev": "nodemon --exec 'npm start' --config nodemon.json",
     "test": "NODE_OPTIONS=--experimental-vm-modules jest",
     "test:cov": "npm run test -- --coverage",
     "test:watch": "npm run test -- --watch",

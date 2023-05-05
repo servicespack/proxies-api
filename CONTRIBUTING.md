@@ -11,11 +11,11 @@ npm ci
 2. Setup environment
 
 ```bash
-npm run dev:setup
+cp .env.example .env
 ```
 
 3. Start service
 
 ```bash
-npm run dev:start
+npm run start:dev
 ```

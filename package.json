@@ -6,7 +6,6 @@
   "main": "src/index.js",
   "type": "module",
   "scripts": {
-    "dev:setup": "cp .env.example .env",
     "dev:start": "nodemon --exec 'npm start' --config nodemon.json",
     "lint": "npx standard",
     "lint:fix": "npm run lint -- --fix",

@@ -1,6 +1,6 @@
-# Node Proxy
+![Node Proxy](https://drive.google.com/uc?export=view&id=14dw6D75qaUuItbnmhNGg7wx9Eds_DiEm)
 
-![Banner](./assets/banner.png)
+---
 
 * Reverse proxy
 * Create proxies dynamically

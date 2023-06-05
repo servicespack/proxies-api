@@ -1,4 +1,4 @@
-name: Node Proxy CD
+name: CD
 
 on:
   workflow_run:

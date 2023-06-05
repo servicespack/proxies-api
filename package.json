@@ -27,7 +27,7 @@
   "homepage": "https://github.com/gabrielrufino/node-proxy#readme",
   "dependencies": {
     "cors": "^2.8.5",
-    "dotenv": "^16.0.3",
+    "dotenv": "^16.1.4",
     "express": "^4.18.2",
     "express-http-proxy": "^1.6.3",
     "express-validator": "^6.15.0",
@@ -45,7 +45,7 @@
     "nodemon": "^2.0.22",
     "pino-pretty": "^9.4.0",
     "rimraf": "^3.0.2",
-    "standard": "^17.0.0",
+    "standard": "^17.1.0",
     "supertest": "^6.3.3"
   },
   "funding": "https://github.com/sponsors/gabrielrufino"

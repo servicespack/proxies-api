@@ -1,17 +1,17 @@
-import { body } from 'express-validator'
+import { body } from 'express-validator';
 
-import { validation } from '../middlewares/validation.middleware.js'
+import { validation } from '../middlewares/validation.middleware.js';
 
 export class ProxiesValidator {
   static create = [
     body('namespace').exists().isString(),
     body('target').exists().isURL(),
-    validation
-  ]
+    validation,
+  ];
 
   static update = [
     body('namespace').optional().isString(),
     body('target').optional().isURL(),
-    validation
-  ]
+    validation,
+  ];
 }

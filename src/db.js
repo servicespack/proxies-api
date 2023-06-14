@@ -1,13 +1,13 @@
-import { dirname, join } from 'node:path'
-import { fileURLToPath } from 'node:url'
+import { dirname, join } from 'node:path';
+import { fileURLToPath } from 'node:url';
 
-import { Low } from 'lowdb'
-import { JSONFile } from 'lowdb/node'
+import { Low } from 'lowdb';
+import { JSONFile } from 'lowdb/node';
 
-const __dirname = dirname(fileURLToPath(import.meta.url))
+const __dirname = dirname(fileURLToPath(import.meta.url));
 
 export const db = new Low(
   new JSONFile(
-    join(__dirname, '..', 'config.json')
-  )
-)
+    join(__dirname, '..', 'config.json'),
+  ),
+);

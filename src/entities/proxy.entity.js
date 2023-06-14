@@ -1,4 +1,4 @@
-import { randomUUID } from 'node:crypto'
+import { randomUUID } from 'node:crypto';
 
 export class ProxyEntity {
   /**
@@ -8,15 +8,15 @@ export class ProxyEntity {
    * @param {string} params.target
    * @param {Date} [params.createdAt]
    */
-  constructor ({
+  constructor({
     id = randomUUID(),
     namespace,
     target,
-    createdAt = new Date().toISOString()
+    createdAt = new Date().toISOString(),
   }) {
-    this.id = id
-    this.namespace = namespace
-    this.target = target
-    this.createdAt = createdAt
+    this.id = id;
+    this.namespace = namespace;
+    this.target = target;
+    this.createdAt = createdAt;
   }
 }

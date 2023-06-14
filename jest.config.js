@@ -1,6 +1,6 @@
 /** @type {import('jest').Config} */
 export default {
   watchPathIgnorePatterns: [
-    '<rootDir>/config.json'
-  ]
-}
+    '<rootDir>/config.json',
+  ],
+};

@@ -1,16 +1,24 @@
-name: Node Proxy CD
+name: CD
 
 on:
   workflow_run:
-    workflows: ['Node Proxy CI']
+    workflows: ['CI']
     types:
       - completed
     branches:
       - main
 
 jobs:
+  ci:
+    name: CI
+    runs-on: ubuntu-latest
+    if: ${{ github.event.workflow_run.conclusion == 'success' }}
+    steps:
+      - run: exit 0
   publish:
     name: Publish on Docker Hub
+    needs:
+      - ci
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v3

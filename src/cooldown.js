@@ -1,10 +1,10 @@
-import { logger } from './logger.js'
-import { server } from './server.js'
+import { logger } from './logger.js';
+import { server } from './server.js';
 
-export async function cooldown () {
-  logger.info('Shutting down Node Proxy')
+export async function cooldown() {
+  logger.info('Shutting down Node Proxy');
 
   server.close(() => {
-    process.exit(0)
-  })
+    process.exit(0);
+  });
 }

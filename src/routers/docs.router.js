@@ -1,17 +1,16 @@
-import { createRequire } from 'node:module'
-import { join } from 'node:path'
+import { createRequire } from 'node:module';
 
-import swaggerUI from 'swagger-ui-express'
-import { Router } from 'express'
+import { Router } from 'express';
+import swaggerUI from 'swagger-ui-express';
 
-const require = createRequire(import.meta.url)
+const require = createRequire(import.meta.url);
 
-const packageJson = require(join('..', '..', 'package.json'))
-const swaggerJson = require(join('..', 'swagger.json'))
+const packageJson = require('../../package.json');
+const swaggerJson = require('../swagger.json');
 
-const router = Router()
+const router = Router();
 
-const { ENABLE_SWAGGER = 'true' } = process.env
+const { ENABLE_SWAGGER = 'true' } = process.env;
 
 if (ENABLE_SWAGGER === 'true') {
   router
@@ -21,16 +20,16 @@ if (ENABLE_SWAGGER === 'true') {
         ...swaggerJson,
         info: {
           ...swaggerJson.info,
-          version: packageJson.version
+          version: packageJson.version,
         },
         servers: [
           ...swaggerJson.servers,
           {
-            url: 'http://localhost:3000'
-          }
-        ]
-      })
-    )
+            url: 'http://localhost:3000',
+          },
+        ],
+      }),
+    );
 }
 
-export const docs = router
+export const docs = router;

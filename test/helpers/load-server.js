@@ -1,7 +1,7 @@
-import { dirname, join } from 'node:path'
-import { fileURLToPath } from 'node:url'
+import { dirname, join } from 'node:path';
+import { fileURLToPath } from 'node:url';
 
-const __dirname = dirname(fileURLToPath(import.meta.url))
+const __dirname = dirname(fileURLToPath(import.meta.url));
 
 /**
  * @returns {import('http').Server}
@@ -9,6 +9,6 @@ const __dirname = dirname(fileURLToPath(import.meta.url))
 export const loadServer = async () => {
   const { server } = await import(
     join(__dirname, '..', '..', 'src', `server.js?time=${Date.now()}`)
-  )
-  return server
-}
+  );
+  return server;
+};

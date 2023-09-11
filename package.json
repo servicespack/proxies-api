@@ -1,6 +1,6 @@
 {
   "name": "node-proxy",
-  "version": "4.3.21",
+  "version": "4.3.22",
   "private": true,
   "description": "Proxy made in Node.js",
   "main": "src/index.js",

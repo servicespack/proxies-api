@@ -24,14 +24,10 @@ jobs:
       - uses: actions/checkout@v3
       - uses: satackey/action-docker-layer-caching@v0.0.11
         continue-on-error: true
-      - name: Build image
-        run: docker image build -t gabrielrufino/node-proxy:latest -t gabrielrufino/node-proxy:$(npm pkg get version | sed 's/"//g') .
-      - name: Log in docker hub
-        run: docker login -u gabrielrufino -p ${{ secrets.DOCKER_HUB_TOKEN }}
-      - name: Publish image
-        run: docker image push -a gabrielrufino/node-proxy
-      - name: Set docker hub description
-        uses: peter-evans/dockerhub-description@v3
+      - run: docker image build -t gabrielrufino/node-proxy:latest -t gabrielrufino/node-proxy:$(npm pkg get version | sed 's/"//g') .
+      - run: docker login -u gabrielrufino -p ${{ secrets.DOCKER_HUB_TOKEN }}
+      - run: docker image push -a gabrielrufino/node-proxy
+      - uses: peter-evans/dockerhub-description@v3
         with:
           username: gabrielrufino
           password: ${{ secrets.DOCKER_HUB_TOKEN }}

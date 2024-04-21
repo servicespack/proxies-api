@@ -32,7 +32,7 @@
     "express-validator": "^6.15.0",
     "helmet": "^6.2.0",
     "lowdb": "^5.1.0",
-    "pino": "^8.19.0",
+    "pino": "^8.20.0",
     "pino-http": "^8.6.1",
     "prom-client": "^14.2.0",
     "swagger-ui-express": "^4.6.3"

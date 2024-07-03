@@ -4,7 +4,7 @@ import request from 'supertest';
 import { loadDb } from './helpers/load-db';
 import { loadServer } from './helpers/load-server';
 
-describe.skip('Proxies CRUD', () => {
+describe('Proxies CRUD', () => {
   /**
    * @type {import('http').Server}
    */
@@ -27,12 +27,25 @@ describe.skip('Proxies CRUD', () => {
   });
 
   describe('POST /proxies', () => {
-    it('Should return status code 201', () => request(server)
-      .post(`/proxies?token=${process.env.TOKEN}`)
-      .send({
-        namespace: faker.internet.domainWord(),
-        target: faker.internet.url(),
+    it('Should return status code 201', async () => {
+      const namespace = faker.internet.domainWord()
+      const target = faker.internet.url()
+
+      const { body, status } = await request(server)
+        .post(`/proxies?token=${process.env.TOKEN}`)
+        .send({
+          namespace,
+          target
+        })
+
+      expect(status).toBe(201)
+      expect(body).toEqual({
+        id: expect.any(String),
+        namespace,
+        target,
+        createdAt: expect.any(String)
       })
-      .expect(201, {}));
+    }
+    );
   });
 });

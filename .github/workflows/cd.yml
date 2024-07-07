@@ -9,18 +9,11 @@ on:
       - main
 
 jobs:
-  ci:
-    name: CI
-    runs-on: ubuntu-latest
-    if: ${{ github.event.workflow_run.conclusion == 'success' }}
-    steps:
-      - run: exit 0
   publish:
     name: Publish on Docker Hub
-    needs:
-      - ci
     runs-on: ubuntu-latest
     steps:
+      - uses: gabrielrufino/check-ci@main
       - uses: actions/checkout@v4
       - uses: satackey/action-docker-layer-caching@v0.0.11
         continue-on-error: true

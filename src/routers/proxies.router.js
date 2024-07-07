@@ -18,6 +18,7 @@ if (ENABLE_PROXIES_CRUD === 'true') {
       const { namespace, target } = request.body;
 
       const proxy = new ProxyEntity({ namespace, target });
+      console.log({ db });
       db.data.proxies.push(proxy);
       await db.write();
 

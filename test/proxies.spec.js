@@ -1,10 +1,9 @@
 import { randomUUID } from 'node:crypto';
 
+import { faker } from '@faker-js/faker';
 import nock from 'nock';
-import { faker } from '@faker-js/faker'
 import request from 'supertest';
 
-import { loadDb } from './helpers/load-db';
 import { loadServer } from './helpers/load-server';
 
 describe('Proxies', () => {
@@ -12,10 +11,6 @@ describe('Proxies', () => {
    * @type {import('http').Server}
    */
   let server;
-  /**
-   * @type {import('lowdb').Low}
-   */
-  let db;
 
   beforeEach(async () => {
     process.env = {
@@ -24,7 +19,6 @@ describe('Proxies', () => {
     };
 
     server = await loadServer();
-    db = await loadDb();
   });
 
   it('should proxy to the api', async () => {

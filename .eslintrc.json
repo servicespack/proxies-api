@@ -2,11 +2,11 @@
     "env": {
         "es2021": true,
         "node": true,
-        "jest/globals": true
+        "vitest/env": true
     },
     "extends": "@gabrielrufino/eslint-config",
     "plugins": [
-        "jest"
+        "vitest"
     ],
     "parser": "@typescript-eslint/parser",
     "parserOptions": {
@@ -18,7 +18,7 @@
     ],
     "overrides": [
         {
-            "files": ["tsdown.config.ts"],
+            "files": ["tsdown.config.ts", "vitest.config.ts"],
             "rules": {
                 "import/no-extraneous-dependencies": "off"
             }

@@ -1,12 +1,8 @@
-import { createRequire } from 'node:module';
-
 import { Router } from 'express';
 import swaggerUI from 'swagger-ui-express';
 
-const require = createRequire(import.meta.url);
-
-const packageJson = require('../../package.json');
-const swaggerJson = require('../swagger.json');
+import packageJson from '../../package.json';
+import swaggerJson from '../swagger.json';
 
 const router = Router();
 

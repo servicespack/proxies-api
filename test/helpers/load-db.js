@@ -8,11 +8,11 @@ const __dirname = dirname(fileURLToPath(import.meta.url));
  */
 export const loadDb = async () => {
   const { db } = await import(
-    join(__dirname, '..', '..', 'src', `db.js?time=${Date.now()}`)
+    join(__dirname, '..', '..', 'src', `db.ts?time=${Date.now()}`)
   );
 
   await db.read();
-  db.data ||= { proxies: [] };
+  db.data = { proxies: [] };
   await db.write();
 
   return db;

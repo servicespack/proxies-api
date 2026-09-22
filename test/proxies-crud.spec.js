@@ -9,10 +9,6 @@ describe('Proxies CRUD', () => {
    * @type {import('http').Server}
    */
   let server;
-  /**
-   * @type {import('lowdb').Low}
-   */
-  let db;
 
   beforeEach(async () => {
     process.env = {
@@ -21,9 +17,7 @@ describe('Proxies CRUD', () => {
     };
 
     server = await loadServer();
-    db = await loadDb();
-
-    console.log(db);
+    await loadDb();
   });
 
   describe('POST /proxies', () => {

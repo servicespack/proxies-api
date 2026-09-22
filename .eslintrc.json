@@ -8,10 +8,22 @@
     "plugins": [
         "jest"
     ],
+    "parser": "@typescript-eslint/parser",
     "parserOptions": {
         "ecmaVersion": "latest",
         "sourceType": "module"
     },
+    "ignorePatterns": [
+        "dist"
+    ],
+    "overrides": [
+        {
+            "files": ["tsdown.config.ts"],
+            "rules": {
+                "import/no-extraneous-dependencies": "off"
+            }
+        }
+    ],
     "rules": {
     }
 }

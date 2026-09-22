@@ -1,6 +1,14 @@
 import { randomUUID } from 'node:crypto';
 
 export class ProxyEntity {
+  id: string;
+
+  namespace: string;
+
+  target: string;
+
+  createdAt: string;
+
   /**
    * @param {Object} params
    * @param {string} [params.id]
@@ -13,6 +21,11 @@ export class ProxyEntity {
     namespace,
     target,
     createdAt = new Date().toISOString(),
+  }: {
+    id?: string,
+    namespace: string,
+    target: string,
+    createdAt?: string,
   }) {
     this.id = id;
     this.namespace = namespace;

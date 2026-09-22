@@ -1,6 +1,6 @@
-import { db } from '../../db.js';
-import { ProxyEntity } from '../../domain/entities/proxy.entity.js';
-import { ProxyRepository } from '../../domain/repositories/proxy.repository.js';
+import { db } from '../../../../config/database.js';
+import { ProxyEntity } from '../../../../domain/entities/proxy.entity.js';
+import { ProxyRepository } from '../../../../domain/repositories/proxy.repository.js';
 
 export class LowDbProxyRepository implements ProxyRepository {
   private database;

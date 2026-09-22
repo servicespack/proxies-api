@@ -1,4 +1,4 @@
-import { ProxyRepository } from '../domain/repositories/proxy.repository.js';
+import { ProxyRepository } from '../../../domain/repositories/proxy.repository.js';
 
 export class ResolveProxyTargetUseCase {
   proxyRepository: ProxyRepository;

@@ -8,7 +8,7 @@ const __dirname = dirname(fileURLToPath(import.meta.url));
  */
 export const loadDb = async () => {
   const { db } = await import(
-    join(__dirname, '..', '..', 'src', `db.ts?time=${Date.now()}`)
+    join(__dirname, '..', '..', 'src', 'config', `database.ts?time=${Date.now()}`)
   );
 
   await db.read();

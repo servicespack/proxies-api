@@ -8,7 +8,7 @@ const __dirname = dirname(fileURLToPath(import.meta.url));
  */
 export const loadServer = async () => {
   const { server } = await import(
-    join(__dirname, '..', '..', 'src', `server.ts?time=${Date.now()}`)
+    join(__dirname, '..', '..', 'src', 'infrastructure', 'http', `server.ts?time=${Date.now()}`)
   );
   return server;
 };

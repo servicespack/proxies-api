@@ -1,6 +1,6 @@
 import { ProxyEntity } from '../../domain/entities/proxy.entity.js';
 import { ProxyEventBus } from '../../domain/events/proxy.events.js';
-import { ProxiesEmitter } from '../../emitters/proxies.emitter.js';
+import { ProxiesEmitter } from '../../infrastructure/events/proxies.emitter.js';
 
 export class NodeProxyEventBus implements ProxyEventBus {
   emitNewProxy(proxy: ProxyEntity): void {

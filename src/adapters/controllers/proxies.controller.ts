@@ -1,10 +1,10 @@
 import { NextFunction, Request, Response } from 'express';
 
-import { CreateProxyUseCase } from '../../usecases/create-proxy.usecase.js';
-import { DeleteProxyUseCase } from '../../usecases/delete-proxy.usecase.js';
-import { GetProxyUseCase } from '../../usecases/get-proxy.usecase.js';
-import { ListProxiesUseCase } from '../../usecases/list-proxies.usecase.js';
-import { UpdateProxyUseCase } from '../../usecases/update-proxy.usecase.js';
+import { CreateProxyUseCase } from '../../application/use-cases/proxies/create-proxy.use-case.js';
+import { DeleteProxyUseCase } from '../../application/use-cases/proxies/delete-proxy.use-case.js';
+import { GetProxyUseCase } from '../../application/use-cases/proxies/get-proxy.use-case.js';
+import { ListProxiesUseCase } from '../../application/use-cases/proxies/list-proxies.use-case.js';
+import { UpdateProxyUseCase } from '../../application/use-cases/proxies/update-proxy.use-case.js';
 
 export class ProxiesController {
   listProxiesUseCase: ListProxiesUseCase;

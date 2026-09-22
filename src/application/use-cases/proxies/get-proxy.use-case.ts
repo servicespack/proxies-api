@@ -1,5 +1,5 @@
-import { ProxyEntity } from '../domain/entities/proxy.entity.js';
-import { ProxyRepository } from '../domain/repositories/proxy.repository.js';
+import { ProxyEntity } from '../../../domain/entities/proxy.entity.js';
+import { ProxyRepository } from '../../../domain/repositories/proxy.repository.js';
 
 export class GetProxyUseCase {
   proxyRepository: ProxyRepository;

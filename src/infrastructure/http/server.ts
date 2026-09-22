@@ -6,12 +6,7 @@ import proxy from 'express-http-proxy';
 import helmet from 'helmet';
 import pino from 'pino-http';
 
-import { auth } from './middlewares/auth.middleware.js';
-import { Routers } from './routers/index.js';
-import { proxyRepository } from './routers/proxies.router.js';
-import { ResolveProxyTargetUseCase } from './usecases/resolve-proxy-target.usecase.js';
-
-const { TOKEN } = process.env;
+import { resolveProxyTargetUseCase, router } from './router.js';
 
 const app = express();
 
@@ -28,12 +23,8 @@ app.use(pino({
     : {},
 }));
 
-const resolveProxyTargetUseCase = new ResolveProxyTargetUseCase(proxyRepository);
-
-app.get('/', (_request, response) => response.json({ I: 'am alive' }));
-app.use('/docs', Routers.docs);
-app.use('/metrics', Routers.metrics);
-app.use('/proxies', auth({ token: TOKEN }), Routers.proxies);
+app.get('/', (_request: Request, response: Response) => response.json({ I: 'am alive' }));
+app.use(router);
 app.use('/:namespace', async (request: Request, response: Response, next: NextFunction) => {
   try {
     const target = await resolveProxyTargetUseCase.execute(String(request.params.namespace));
@@ -54,7 +45,5 @@ app.use((error: any, _request: Request, response: Response, _next: NextFunction)
   });
 });
 
-/**
- * @type {import('http').Server}
- */
 export const server = http.createServer(app);
+export { app };

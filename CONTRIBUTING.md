@@ -1,10 +1,10 @@
-# Proxies API - Contributing
+# Proxies Service - Contributing
 
 1. Clone repo and install dependencies
 
 ```sh
-git clone https://github.com/servicespack/proxies-api
-cd proxies-api
+git clone https://github.com/servicespack/proxies-service
+cd proxies-service
 npm ci
 ```
 

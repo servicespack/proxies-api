@@ -1,5 +1,5 @@
 {
-  "name": "@servicespack/proxies-api",
+  "name": "@servicespack/proxies-service",
   "version": "4.3.33",
   "private": true,
   "main": "dist/index.mjs",

@@ -1,6 +1,6 @@
 # AGENTS.md
 
-Instructions for AI agents working in `proxies-api`.
+Instructions for AI agents working in `proxies-service`.
 
 ## Architecture & Layout
 
@@ -8,7 +8,7 @@ Instructions for AI agents working in `proxies-api`.
   - `src/domain/`: Core entities and repository/event bus interfaces (dependency-free).
   - `src/application/`: Application business logic, use cases (`src/application/use-cases/proxies/`), and DTO interfaces.
   - `src/adapters/`: Interface adapters (`ProxiesController`, `auth.middleware.ts`, `validation.middleware.ts`, `ProxiesValidator`, `NodeProxyEventBus`).
-  - `src/config/`: Application configuration, logger (`logger.ts`), cooldown (`cooldown.ts`), and database initialization (`database.ts`).
+  - `src/config/`: Application configuration, logger (`logger.ts`), and database initialization (`database.ts`).
   - `src/infrastructure/`: Frameworks, drivers, and external adapters:
     - `database/lowdb/`: LowDB repository implementation (`LowDbProxyRepository`).
     - `http/`: Express setup (`server.ts`), router composition root (`router.ts`), and route handlers (`routers/`).

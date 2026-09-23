@@ -1,24 +1,23 @@
-# Proxies API
+# Proxies Service
 
 ---
 
 * Reverse proxy
 * Create proxies dynamically
 * Prometheus metrics
-* Procted by [helmet](https://helmetjs.github.io/)
+* Protected by [helmet](https://helmetjs.github.io/)
 * Graceful Shutdown
 
 ## Getting started
 
-Start a proxy usig docker:
+Start a proxy using docker:
 
 ```sh
 docker container run \
   -p 3000:3000 \
-  -v "proxies-api:/usr/src/app/" \
   -e NODE_ENV=production \
-  --name proxies-api \
-  servicespack/proxies-api
+  --name proxies-service \
+  servicespack/proxies-service
 ```
 
 ## API

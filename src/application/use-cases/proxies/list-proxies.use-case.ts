@@ -1,12 +1,8 @@
-import { ProxyEntity } from '../../../domain/entities/proxy.entity.js';
-import { ProxyRepository } from '../../../domain/repositories/proxy.repository.js';
+import type { ProxyEntity } from '../../../domain/entities/proxy.entity.js';
+import type { ProxyRepository } from '../../../domain/repositories/proxy.repository.js';
 
 export class ListProxiesUseCase {
-  proxyRepository: ProxyRepository;
-
-  constructor(proxyRepository: ProxyRepository) {
-    this.proxyRepository = proxyRepository;
-  }
+  constructor(private readonly proxyRepository: ProxyRepository) {}
 
   async execute(): Promise<ProxyEntity[]> {
     return this.proxyRepository.findAll();

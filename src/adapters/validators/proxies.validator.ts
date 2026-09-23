@@ -2,16 +2,15 @@ import { body } from 'express-validator';
 
 import { validation } from '../middlewares/validation.middleware.js';
 
-export class ProxiesValidator {
-  static create = [
+export const proxiesValidator = {
+  create: [
     body('namespace').exists().isString(),
     body('target').exists().isURL(),
     validation,
-  ];
-
-  static update = [
+  ],
+  update: [
     body('namespace').optional().isString(),
     body('target').optional().isURL(),
     validation,
-  ];
-}
+  ],
+};

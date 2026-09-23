@@ -22,8 +22,17 @@
             "rules": {
                 "import/no-extraneous-dependencies": "off"
             }
+        },
+        {
+            "files": ["*.ts"],
+            "rules": {
+                "no-unused-vars": "off",
+                "no-useless-constructor": "off",
+                "no-empty-function": "off"
+            }
         }
     ],
     "rules": {
     }
 }
+

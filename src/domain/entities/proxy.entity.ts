@@ -1,32 +1,27 @@
 import { randomUUID } from 'node:crypto';
 
+export interface ProxyEntityProps {
+  readonly id?: string;
+  readonly namespace: string;
+  readonly target: string;
+  readonly createdAt?: string;
+}
+
 export class ProxyEntity {
-  id: string;
+  public readonly id: string;
 
-  namespace: string;
+  public readonly namespace: string;
 
-  target: string;
+  public readonly target: string;
 
-  createdAt: string;
+  public readonly createdAt: string;
 
-  /**
-   * @param {Object} params
-   * @param {string} [params.id]
-   * @param {string} params.namespace
-   * @param {string} params.target
-   * @param {Date} [params.createdAt]
-   */
   constructor({
     id = randomUUID(),
     namespace,
     target,
     createdAt = new Date().toISOString(),
-  }: {
-    id?: string,
-    namespace: string,
-    target: string,
-    createdAt?: string,
-  }) {
+  }: ProxyEntityProps) {
     this.id = id;
     this.namespace = namespace;
     this.target = target;

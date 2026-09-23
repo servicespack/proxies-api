@@ -1,10 +1,13 @@
 import http from 'node:http';
 
 import cors from 'cors';
-import express, { NextFunction, Request, Response } from 'express';
+import type { NextFunction, Request, Response } from 'express';
+import express from 'express';
 import proxy from 'express-http-proxy';
 import helmet from 'helmet';
 import pino from 'pino-http';
+
+import { logger } from '../../config/logger.js';
 
 import { resolveProxyTargetUseCase, router } from './router.js';
 
@@ -13,34 +16,34 @@ const app = express();
 app.use(cors());
 app.use(express.json());
 app.use(helmet());
-app.use(pino({
-  ...process.env.NODE_ENV !== 'production'
-    ? {
-      transport: {
-        target: 'pino-pretty',
-      },
-    }
-    : {},
-}));
+app.use(pino({ logger }));
 
 app.get('/', (_request: Request, response: Response) => response.json({ I: 'am alive' }));
 app.use(router);
-app.use('/:namespace', async (request: Request, response: Response, next: NextFunction) => {
+
+const dynamicProxyRouter = express.Router();
+dynamicProxyRouter.use('/:namespace', async (request: Request, response: Response, next: NextFunction) => {
   try {
     const target = await resolveProxyTargetUseCase.execute(String(request.params.namespace));
     if (!target) {
-      return response.status(404).json({ error: 'Namespace not found' });
+      response.status(404).json({ error: 'Namespace not found' });
+      return;
     }
-    return proxy(target)(request, response, next);
+    proxy(target)(request, response, next);
   } catch (error) {
-    return next(error);
+    next(error);
   }
 });
+app.use(dynamicProxyRouter);
 
-// eslint-disable-next-line no-unused-vars
-app.use((error: any, _request: Request, response: Response, _next: NextFunction) => {
+export interface HttpError extends Error {
+  status?: number;
+  statusCode?: number;
+}
+
+app.use((error: HttpError, _request: Request, response: Response, _next: NextFunction): void => {
   const status = error.status || error.statusCode || 500;
-  return response.status(status).json({
+  response.status(status).json({
     error: error.message || 'Internal Server Error',
   });
 });

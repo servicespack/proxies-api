@@ -1,11 +1,7 @@
-import { ProxyRepository } from '../../../domain/repositories/proxy.repository.js';
+import type { ProxyRepository } from '../../../domain/repositories/proxy.repository.js';
 
 export class ResolveProxyTargetUseCase {
-  proxyRepository: ProxyRepository;
-
-  constructor(proxyRepository: ProxyRepository) {
-    this.proxyRepository = proxyRepository;
-  }
+  constructor(private readonly proxyRepository: ProxyRepository) {}
 
   async execute(namespace: string): Promise<string | undefined> {
     const proxy = await this.proxyRepository.findByNamespace(namespace);

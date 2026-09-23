@@ -1,6 +1,6 @@
 import { ProxyEntity } from '../../../domain/entities/proxy.entity.js';
-import { ProxyEventBus } from '../../../domain/events/proxy.events.js';
-import { ProxyRepository } from '../../../domain/repositories/proxy.repository.js';
+import type { ProxyEventBus } from '../../../domain/events/proxy.events.js';
+import type { ProxyRepository } from '../../../domain/repositories/proxy.repository.js';
 
 export interface CreateProxyDTO {
   readonly namespace: string;
@@ -8,17 +8,10 @@ export interface CreateProxyDTO {
 }
 
 export class CreateProxyUseCase {
-  proxyRepository: ProxyRepository;
-
-  proxyEventBus: ProxyEventBus;
-
   constructor(
-    proxyRepository: ProxyRepository,
-    proxyEventBus: ProxyEventBus,
-  ) {
-    this.proxyRepository = proxyRepository;
-    this.proxyEventBus = proxyEventBus;
-  }
+    private readonly proxyRepository: ProxyRepository,
+    private readonly proxyEventBus: ProxyEventBus,
+  ) {}
 
   async execute(dto: CreateProxyDTO): Promise<ProxyEntity> {
     const proxy = new ProxyEntity({ namespace: dto.namespace, target: dto.target });

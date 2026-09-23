@@ -1,34 +1,40 @@
-import { NextFunction, Request, Response } from 'express';
+import type { NextFunction, Request, Response } from 'express';
 
-import { CreateProxyUseCase } from '../../application/use-cases/proxies/create-proxy.use-case.js';
-import { DeleteProxyUseCase } from '../../application/use-cases/proxies/delete-proxy.use-case.js';
-import { GetProxyUseCase } from '../../application/use-cases/proxies/get-proxy.use-case.js';
-import { ListProxiesUseCase } from '../../application/use-cases/proxies/list-proxies.use-case.js';
-import { UpdateProxyUseCase } from '../../application/use-cases/proxies/update-proxy.use-case.js';
+import type { CreateProxyUseCase } from '../../application/use-cases/proxies/create-proxy.use-case.js';
+import type { DeleteProxyUseCase } from '../../application/use-cases/proxies/delete-proxy.use-case.js';
+import type { GetProxyUseCase } from '../../application/use-cases/proxies/get-proxy.use-case.js';
+import type { ListProxiesUseCase } from '../../application/use-cases/proxies/list-proxies.use-case.js';
+import type { UpdateProxyUseCase } from '../../application/use-cases/proxies/update-proxy.use-case.js';
+
+export interface ProxiesControllerDependencies {
+  readonly listProxiesUseCase: ListProxiesUseCase;
+  readonly createProxyUseCase: CreateProxyUseCase;
+  readonly getProxyUseCase: GetProxyUseCase;
+  readonly updateProxyUseCase: UpdateProxyUseCase;
+  readonly deleteProxyUseCase: DeleteProxyUseCase;
+}
 
 export class ProxiesController {
-  listProxiesUseCase: ListProxiesUseCase;
+  private readonly listProxiesUseCase: ListProxiesUseCase;
 
-  createProxyUseCase: CreateProxyUseCase;
+  private readonly createProxyUseCase: CreateProxyUseCase;
 
-  getProxyUseCase: GetProxyUseCase;
+  private readonly getProxyUseCase: GetProxyUseCase;
 
-  updateProxyUseCase: UpdateProxyUseCase;
+  private readonly updateProxyUseCase: UpdateProxyUseCase;
 
-  deleteProxyUseCase: DeleteProxyUseCase;
+  private readonly deleteProxyUseCase: DeleteProxyUseCase;
 
-  constructor(
-    listProxiesUseCase: ListProxiesUseCase,
-    createProxyUseCase: CreateProxyUseCase,
-    getProxyUseCase: GetProxyUseCase,
-    updateProxyUseCase: UpdateProxyUseCase,
-    deleteProxyUseCase: DeleteProxyUseCase,
-  ) {
-    this.listProxiesUseCase = listProxiesUseCase;
-    this.createProxyUseCase = createProxyUseCase;
-    this.getProxyUseCase = getProxyUseCase;
-    this.updateProxyUseCase = updateProxyUseCase;
-    this.deleteProxyUseCase = deleteProxyUseCase;
+  constructor(dependencies: ProxiesControllerDependencies) {
+    this.listProxiesUseCase = dependencies.listProxiesUseCase;
+    this.createProxyUseCase = dependencies.createProxyUseCase;
+    this.getProxyUseCase = dependencies.getProxyUseCase;
+    this.updateProxyUseCase = dependencies.updateProxyUseCase;
+    this.deleteProxyUseCase = dependencies.deleteProxyUseCase;
+  }
+
+  private notFound(response: Response): Response {
+    return response.status(404).json({ error: 'Not found' });
   }
 
   list = async (
@@ -68,7 +74,7 @@ export class ProxiesController {
       const proxy = await this.getProxyUseCase.execute(proxyId);
 
       if (!proxy) {
-        return response.status(404).json({ error: 'Not found' });
+        return this.notFound(response);
       }
 
       return response.json(proxy);
@@ -87,7 +93,7 @@ export class ProxiesController {
       const proxy = await this.updateProxyUseCase.execute(proxyId, request.body);
 
       if (!proxy) {
-        return response.status(404).json({ error: 'Not found' });
+        return this.notFound(response);
       }
 
       return response.json(proxy);
@@ -106,7 +112,7 @@ export class ProxiesController {
       const proxy = await this.deleteProxyUseCase.execute(proxyId);
 
       if (!proxy) {
-        return response.status(404).json({ error: 'Not found' });
+        return this.notFound(response);
       }
 
       return response.json(proxy);

@@ -16,7 +16,18 @@ const app = express();
 app.use(cors());
 app.use(express.json());
 app.use(helmet());
-app.use(pino({ logger }));
+app.use(pino({
+  logger,
+  redact: ['req.headers.authorization'],
+  serializers: {
+    req(req) {
+      if (req.url) {
+        req.url = req.url.replace(/([?&])token=[^&]+/, '$1token=***');
+      }
+      return req;
+    },
+  },
+}));
 
 app.get('/', (_request: Request, response: Response) => response.json({ I: 'am alive' }));
 app.use(router);

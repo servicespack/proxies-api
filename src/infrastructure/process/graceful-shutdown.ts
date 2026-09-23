@@ -9,7 +9,14 @@ const EXIT_SIGNALS = {
 } as const;
 
 export function setupGracefulShutdown(hooks: ShutdownHook[]): void {
+  let isShuttingDown = false;
+
   const close = (code: number) => async () => {
+    if (isShuttingDown) {
+      return;
+    }
+    isShuttingDown = true;
+
     logger.info('Shutting down Node Proxy');
 
     try {

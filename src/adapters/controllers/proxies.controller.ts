@@ -90,7 +90,12 @@ export class ProxiesController {
   ): Promise<Response | void> => {
     try {
       const proxyId = String(request.params.proxyId);
-      const proxy = await this.updateProxyUseCase.execute(proxyId, request.body);
+      const { namespace, target } = request.body;
+      const dto: Record<string, string> = {};
+      if (namespace !== undefined) dto.namespace = namespace;
+      if (target !== undefined) dto.target = target;
+
+      const proxy = await this.updateProxyUseCase.execute(proxyId, dto);
 
       if (!proxy) {
         return this.notFound(response);

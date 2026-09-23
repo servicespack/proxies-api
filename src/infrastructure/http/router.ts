@@ -16,7 +16,7 @@ import { ProxiesEmitter } from '../events/proxies.emitter.js';
 import { docs } from './routers/docs.router.js';
 import { metrics } from './routers/metrics.router.js';
 
-const { ENABLE_PROXIES_CRUD = 'true' } = process.env;
+const { ENABLE_PROXIES_CRUD = 'true', TOKEN } = process.env;
 
 const proxyRepository = new LowDbProxyRepository();
 const proxyEventBus = new NodeProxyEventBus(ProxiesEmitter.emitter);
@@ -34,6 +34,10 @@ export const resolveProxyTargetUseCase = new ResolveProxyTargetUseCase(proxyRepo
 const proxiesRouter = Router();
 
 if (ENABLE_PROXIES_CRUD === 'true') {
+  if (!TOKEN) {
+    throw new Error('TOKEN environment variable is required to enable proxies CRUD routes.');
+  }
+
   proxiesRouter
     .get('/', proxiesController.list)
     .post('/', proxiesValidator.create, proxiesController.create)

@@ -9,13 +9,21 @@ async function main() {
 
   setupGracefulShutdown([
     () => new Promise<void>((resolve, reject) => {
+      let timeoutId: ReturnType<typeof setTimeout>;
+
       server.close((err) => {
+        clearTimeout(timeoutId);
         if (err) {
           reject(err);
         } else {
           resolve();
         }
       });
+
+      timeoutId = setTimeout(() => {
+        logger.warn('Force-closing remaining connections after timeout');
+        server.closeAllConnections();
+      }, 5000);
     }),
   ]);
 }

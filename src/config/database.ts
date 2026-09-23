@@ -1,4 +1,5 @@
-import { join } from 'node:path';
+import { join, dirname } from 'node:path';
+import { fileURLToPath } from 'node:url';
 
 import { JSONFilePreset } from 'lowdb/node';
 
@@ -8,8 +9,13 @@ export type DatabaseSchema = {
   proxies: ProxyEntity[];
 };
 
+const currentDir = dirname(fileURLToPath(import.meta.url));
+const isSrc = currentDir.endsWith('config');
+const rootDir = isSrc ? join(currentDir, '..', '..') : join(currentDir, '..');
+const defaultPath = join(rootDir, 'config.json');
+
 export const connectDatabase = (
-  filePath = process.env.CONFIG_PATH || join(process.cwd(), 'config.json'),
+  filePath = process.env.CONFIG_PATH || defaultPath,
 ) => JSONFilePreset<DatabaseSchema>(filePath, { proxies: [] });
 
 export const db = await connectDatabase();

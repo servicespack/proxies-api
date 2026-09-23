@@ -20,7 +20,7 @@ Instructions for AI agents working in `proxies-service`.
 ## Critical Quirks
 
 - **Authentication**: Auth middleware checks query parameter `?token=<TOKEN>` (`request.query.token`), **not** an `Authorization` header.
-- **Import Extensions**: TypeScript ESM imports require `.js` extensions on relative paths (e.g. `import ... from './middlewares/auth.middleware.js'`).
+- **Import Extensions & Path Aliases**: TypeScript ESM imports require `.js` extensions (e.g. `import ... from '@/adapters/middlewares/auth.middleware.js'`). Use the `@/*` alias for cross-layer/distant imports, keeping relative paths (`./...`) only for nearby/sibling files.
 - **Feature Flags**:
   - `ENABLE_PROXIES_CRUD`: Defaults to `'true'`. Toggles `/proxies` endpoints.
   - `ENABLE_METRICS_ROUTER`: Defaults to `'false'`. Toggles `/metrics` endpoint.

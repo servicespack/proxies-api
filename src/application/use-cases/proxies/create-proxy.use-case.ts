@@ -1,6 +1,6 @@
-import { ProxyEntity } from '../../../domain/entities/proxy.entity.js';
-import type { ProxyEventBus } from '../../../domain/events/proxy.events.js';
-import type { ProxyRepository } from '../../../domain/repositories/proxy.repository.js';
+import { ProxyEntity } from '@/domain/entities/proxy.entity.js';
+import type { ProxyEventBus } from '@/domain/events/proxy.events.js';
+import type { ProxyRepository } from '@/domain/repositories/proxy.repository.js';
 
 export interface CreateProxyDTO {
   readonly namespace: string;

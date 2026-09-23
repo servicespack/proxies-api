@@ -1,5 +1,5 @@
 /* eslint-disable no-unused-vars */
-import type { ProxyEntity } from '../entities/proxy.entity.js';
+import type { ProxyEntity } from '@/domain/entities/proxy.entity.js';
 
 export interface ProxyRepository {
   findAll(): Promise<ProxyEntity[]>;

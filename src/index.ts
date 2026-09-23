@@ -1,6 +1,6 @@
-import { logger } from './config/index.js';
-import { server } from './infrastructure/http/server.js';
-import { setupGracefulShutdown } from './infrastructure/process/graceful-shutdown.js';
+import { logger } from '@/config/index.js';
+import { server } from '@/infrastructure/http/server.js';
+import { setupGracefulShutdown } from '@/infrastructure/process/graceful-shutdown.js';
 
 async function main() {
   const { PORT = 3000 } = process.env;

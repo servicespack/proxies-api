@@ -1,5 +1,5 @@
-import type { ProxyEntity } from '../../../domain/entities/proxy.entity.js';
-import type { ProxyRepository } from '../../../domain/repositories/proxy.repository.js';
+import type { ProxyEntity } from '@/domain/entities/proxy.entity.js';
+import type { ProxyRepository } from '@/domain/repositories/proxy.repository.js';
 
 export class GetProxyUseCase {
   constructor(private readonly proxyRepository: ProxyRepository) {}

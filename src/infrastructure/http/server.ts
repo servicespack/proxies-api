@@ -7,9 +7,9 @@ import proxy from 'express-http-proxy';
 import helmet from 'helmet';
 import pino from 'pino-http';
 
-import { logger } from '../../config/logger.js';
-
 import { resolveProxyTargetUseCase, router } from './router.js';
+
+import { logger } from '@/config/logger.js';
 
 const app = express();
 

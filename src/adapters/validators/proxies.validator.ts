@@ -1,6 +1,6 @@
 import { body } from 'express-validator';
 
-import { validation } from '../middlewares/validation.middleware.js';
+import { validation } from '@/adapters/middlewares/validation.middleware.js';
 
 export const proxiesValidator = {
   create: [

@@ -3,7 +3,7 @@ import { fileURLToPath } from 'node:url';
 
 import { JSONFilePreset } from 'lowdb/node';
 
-import { ProxyEntity } from '../domain/entities/proxy.entity.js';
+import { ProxyEntity } from '@/domain/entities/proxy.entity.js';
 
 export type DatabaseSchema = {
   proxies: ProxyEntity[];

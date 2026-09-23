@@ -1,10 +1,10 @@
 import type { NextFunction, Request, Response } from 'express';
 
-import type { CreateProxyUseCase } from '../../application/use-cases/proxies/create-proxy.use-case.js';
-import type { DeleteProxyUseCase } from '../../application/use-cases/proxies/delete-proxy.use-case.js';
-import type { GetProxyUseCase } from '../../application/use-cases/proxies/get-proxy.use-case.js';
-import type { ListProxiesUseCase } from '../../application/use-cases/proxies/list-proxies.use-case.js';
-import type { UpdateProxyUseCase } from '../../application/use-cases/proxies/update-proxy.use-case.js';
+import type { CreateProxyUseCase } from '@/application/use-cases/proxies/create-proxy.use-case.js';
+import type { DeleteProxyUseCase } from '@/application/use-cases/proxies/delete-proxy.use-case.js';
+import type { GetProxyUseCase } from '@/application/use-cases/proxies/get-proxy.use-case.js';
+import type { ListProxiesUseCase } from '@/application/use-cases/proxies/list-proxies.use-case.js';
+import type { UpdateProxyUseCase } from '@/application/use-cases/proxies/update-proxy.use-case.js';
 
 export interface ProxiesControllerDependencies {
   readonly listProxiesUseCase: ListProxiesUseCase;

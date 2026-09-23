@@ -1,11 +1,11 @@
 import type { Low } from 'lowdb';
 
-import type { DatabaseSchema } from '../../../../config/database.js';
-import { db } from '../../../../config/database.js';
-import type { ProxyEntity } from '../../../../domain/entities/proxy.entity.js';
-import type { ProxyRepository } from '../../../../domain/repositories/proxy.repository.js';
-
 import { Mutex } from './mutex.js';
+
+import type { DatabaseSchema } from '@/config/database.js';
+import { db } from '@/config/database.js';
+import type { ProxyEntity } from '@/domain/entities/proxy.entity.js';
+import type { ProxyRepository } from '@/domain/repositories/proxy.repository.js';
 
 const dbMutex = new Mutex();
 

@@ -1,11 +1,9 @@
+import type { UpdateProxyInput } from '@/adapters/validators/proxies.validator.js';
 import type { ProxyEntity } from '@/domain/entities/proxy.entity.js';
 import type { ProxyEventBus } from '@/domain/events/proxy.events.js';
 import type { ProxyRepository } from '@/domain/repositories/proxy.repository.js';
 
-export interface UpdateProxyDTO {
-  readonly namespace?: string;
-  readonly target?: string;
-}
+export type UpdateProxyDTO = UpdateProxyInput;
 
 export class UpdateProxyUseCase {
   constructor(

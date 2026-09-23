@@ -1,11 +1,9 @@
+import type { CreateProxyInput } from '@/adapters/validators/proxies.validator.js';
 import { ProxyEntity } from '@/domain/entities/proxy.entity.js';
 import type { ProxyEventBus } from '@/domain/events/proxy.events.js';
 import type { ProxyRepository } from '@/domain/repositories/proxy.repository.js';
 
-export interface CreateProxyDTO {
-  readonly namespace: string;
-  readonly target: string;
-}
+export type CreateProxyDTO = CreateProxyInput;
 
 export class CreateProxyUseCase {
   constructor(

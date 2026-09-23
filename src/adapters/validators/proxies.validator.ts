@@ -1,16 +1,14 @@
-import { body } from 'express-validator';
+import { z } from 'zod';
 
-import { validation } from '@/adapters/middlewares/validation.middleware.js';
+export const createProxySchema = z.object({
+  namespace: z.string().min(1),
+  target: z.string().url(),
+});
 
-export const proxiesValidator = {
-  create: [
-    body('namespace').exists().isString(),
-    body('target').exists().isURL(),
-    validation,
-  ],
-  update: [
-    body('namespace').optional().isString(),
-    body('target').optional().isURL(),
-    validation,
-  ],
-};
+export const updateProxySchema = z.object({
+  namespace: z.string().min(1).optional(),
+  target: z.string().url().optional(),
+});
+
+export type CreateProxyInput = z.infer<typeof createProxySchema>;
+export type UpdateProxyInput = z.infer<typeof updateProxySchema>;

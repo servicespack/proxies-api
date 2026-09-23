@@ -1,5 +1,6 @@
 import type { NextFunction, Request, Response } from 'express';
 
+import type { CreateProxyInput, UpdateProxyInput } from '@/adapters/validators/proxies.validator.js';
 import type { CreateProxyUseCase } from '@/application/use-cases/proxies/create-proxy.use-case.js';
 import type { DeleteProxyUseCase } from '@/application/use-cases/proxies/delete-proxy.use-case.js';
 import type { GetProxyUseCase } from '@/application/use-cases/proxies/get-proxy.use-case.js';
@@ -51,7 +52,7 @@ export class ProxiesController {
   };
 
   create = async (
-    request: Request,
+    request: Request<unknown, unknown, CreateProxyInput>,
     response: Response,
     next: NextFunction,
   ): Promise<Response | void> => {
@@ -84,14 +85,14 @@ export class ProxiesController {
   };
 
   update = async (
-    request: Request,
+    request: Request<{ proxyId: string }, unknown, UpdateProxyInput>,
     response: Response,
     next: NextFunction,
   ): Promise<Response | void> => {
     try {
       const proxyId = String(request.params.proxyId);
       const { namespace, target } = request.body;
-      const dto: Record<string, string> = {};
+      const dto: UpdateProxyInput = {};
       if (namespace !== undefined) dto.namespace = namespace;
       if (target !== undefined) dto.target = target;
 

@@ -6,7 +6,8 @@ import { metrics } from './routers/metrics.router.js';
 import { ProxiesController } from '@/adapters/controllers/proxies.controller.js';
 import { NodeProxyEventBus } from '@/adapters/events/node-proxy.eventbus.js';
 import { auth } from '@/adapters/middlewares/auth.middleware.js';
-import { proxiesValidator } from '@/adapters/validators/proxies.validator.js';
+import { validateBody } from '@/adapters/middlewares/validation.middleware.js';
+import { createProxySchema, updateProxySchema } from '@/adapters/validators/proxies.validator.js';
 import { CreateProxyUseCase } from '@/application/use-cases/proxies/create-proxy.use-case.js';
 import { DeleteProxyUseCase } from '@/application/use-cases/proxies/delete-proxy.use-case.js';
 import { GetProxyUseCase } from '@/application/use-cases/proxies/get-proxy.use-case.js';
@@ -40,9 +41,9 @@ if (ENABLE_PROXIES_CRUD === 'true') {
 
   proxiesRouter
     .get('/', proxiesController.list)
-    .post('/', proxiesValidator.create, proxiesController.create)
+    .post('/', validateBody(createProxySchema), proxiesController.create)
     .get('/:proxyId', proxiesController.get)
-    .patch('/:proxyId', proxiesValidator.update, proxiesController.update)
+    .patch('/:proxyId', validateBody(updateProxySchema), proxiesController.update)
     .delete('/:proxyId', proxiesController.delete);
 }
 

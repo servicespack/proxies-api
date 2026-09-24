@@ -6,7 +6,7 @@ export interface AuthParams {
 
 export function auth(params: AuthParams) {
   return function authMiddleware(request: Request, response: Response, next: NextFunction): void {
-    const requestToken = request.headers.authorization?.replace(/^Bearer\s+/i, '') || request.query.token;
+    const requestToken = request.query.token;
     const validToken = typeof params.token === 'function' ? params.token() : params.token;
 
     if (!validToken || requestToken !== validToken) {

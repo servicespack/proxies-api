@@ -20,49 +20,6 @@ describe('auth middleware', () => {
   } as Request);
 
   describe('when validToken is provided as a string', () => {
-    it('should call next when token matches Bearer authorization header', () => {
-      const middleware = auth({ token: 'secret-token' });
-      const request = createMockRequest({
-        headers: { authorization: 'Bearer secret-token' },
-      });
-      const response = createMockResponse();
-      const next = vi.fn();
-
-      middleware(request, response, next);
-
-      expect(next).toHaveBeenCalledTimes(1);
-      expect(response.status).not.toHaveBeenCalled();
-      expect(response.json).not.toHaveBeenCalled();
-    });
-
-    it('should call next when token matches case-insensitive bearer header', () => {
-      const middleware = auth({ token: 'secret-token' });
-      const request = createMockRequest({
-        headers: { authorization: 'bearer secret-token' },
-      });
-      const response = createMockResponse();
-      const next = vi.fn();
-
-      middleware(request, response, next);
-
-      expect(next).toHaveBeenCalledTimes(1);
-      expect(response.status).not.toHaveBeenCalled();
-    });
-
-    it('should call next when token matches authorization header without Bearer prefix', () => {
-      const middleware = auth({ token: 'secret-token' });
-      const request = createMockRequest({
-        headers: { authorization: 'secret-token' },
-      });
-      const response = createMockResponse();
-      const next = vi.fn();
-
-      middleware(request, response, next);
-
-      expect(next).toHaveBeenCalledTimes(1);
-      expect(response.status).not.toHaveBeenCalled();
-    });
-
     it('should call next when token matches query param', () => {
       const middleware = auth({ token: 'secret-token' });
       const request = createMockRequest({
@@ -75,36 +32,6 @@ describe('auth middleware', () => {
 
       expect(next).toHaveBeenCalledTimes(1);
       expect(response.status).not.toHaveBeenCalled();
-    });
-
-    it('should prioritize authorization header over query token', () => {
-      const middleware = auth({ token: 'header-token' });
-      const request = createMockRequest({
-        headers: { authorization: 'Bearer header-token' },
-        query: { token: 'query-token' },
-      });
-      const response = createMockResponse();
-      const next = vi.fn();
-
-      middleware(request, response, next);
-
-      expect(next).toHaveBeenCalledTimes(1);
-      expect(response.status).not.toHaveBeenCalled();
-    });
-
-    it('should return 401 when authorization header is invalid', () => {
-      const middleware = auth({ token: 'secret-token' });
-      const request = createMockRequest({
-        headers: { authorization: 'Bearer wrong-token' },
-      });
-      const response = createMockResponse();
-      const next = vi.fn();
-
-      middleware(request, response, next);
-
-      expect(next).not.toHaveBeenCalled();
-      expect(response.status).toHaveBeenCalledWith(401);
-      expect(response.json).toHaveBeenCalledWith({ error: 'Unauthorized' });
     });
 
     it('should return 401 when query token is invalid', () => {
@@ -141,7 +68,7 @@ describe('auth middleware', () => {
       const tokenFn = vi.fn().mockReturnValue('dynamic-token');
       const middleware = auth({ token: tokenFn });
       const request = createMockRequest({
-        headers: { authorization: 'Bearer dynamic-token' },
+        query: { token: 'dynamic-token' },
       });
       const response = createMockResponse();
       const next = vi.fn();
@@ -157,7 +84,7 @@ describe('auth middleware', () => {
       const tokenFn = vi.fn().mockReturnValue('expected-token');
       const middleware = auth({ token: tokenFn });
       const request = createMockRequest({
-        headers: { authorization: 'Bearer wrong-token' },
+        query: { token: 'wrong-token' },
       });
       const response = createMockResponse();
       const next = vi.fn();
@@ -174,7 +101,7 @@ describe('auth middleware', () => {
       const tokenFn = vi.fn().mockReturnValue(undefined);
       const middleware = auth({ token: tokenFn });
       const request = createMockRequest({
-        headers: { authorization: 'Bearer any-token' },
+        query: { token: 'any-token' },
       });
       const response = createMockResponse();
       const next = vi.fn();
@@ -192,7 +119,7 @@ describe('auth middleware', () => {
     it('should return 401 when params token is undefined', () => {
       const middleware = auth({});
       const request = createMockRequest({
-        headers: { authorization: 'Bearer any-token' },
+        query: { token: 'any-token' },
       });
       const response = createMockResponse();
       const next = vi.fn();

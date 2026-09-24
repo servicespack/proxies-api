@@ -32,30 +32,36 @@ export class ProxiesController {
     this.getProxyUseCase = dependencies.getProxyUseCase;
     this.updateProxyUseCase = dependencies.updateProxyUseCase;
     this.deleteProxyUseCase = dependencies.deleteProxyUseCase;
+
+    this.list = this.list.bind(this);
+    this.create = this.create.bind(this);
+    this.get = this.get.bind(this);
+    this.update = this.update.bind(this);
+    this.delete = this.delete.bind(this);
   }
 
   private notFound(response: Response): Response {
     return response.status(404).json({ error: 'Not found' });
   }
 
-  list = async (
+  async list(
     _request: Request,
     response: Response,
     next: NextFunction,
-  ): Promise<Response | void> => {
+  ): Promise<Response | void> {
     try {
       const proxies = await this.listProxiesUseCase.execute();
       return response.json({ data: proxies });
     } catch (error) {
       return next(error);
     }
-  };
+  }
 
-  create = async (
+  async create(
     request: Request<unknown, unknown, CreateProxyInput>,
     response: Response,
     next: NextFunction,
-  ): Promise<Response | void> => {
+  ): Promise<Response | void> {
     try {
       const { namespace, target } = request.body;
       const proxy = await this.createProxyUseCase.execute({ namespace, target });
@@ -63,13 +69,13 @@ export class ProxiesController {
     } catch (error) {
       return next(error);
     }
-  };
+  }
 
-  get = async (
+  async get(
     request: Request,
     response: Response,
     next: NextFunction,
-  ): Promise<Response | void> => {
+  ): Promise<Response | void> {
     try {
       const proxyId = String(request.params.proxyId);
       const proxy = await this.getProxyUseCase.execute(proxyId);
@@ -82,13 +88,13 @@ export class ProxiesController {
     } catch (error) {
       return next(error);
     }
-  };
+  }
 
-  update = async (
+  async update(
     request: Request<{ proxyId: string }, unknown, UpdateProxyInput>,
     response: Response,
     next: NextFunction,
-  ): Promise<Response | void> => {
+  ): Promise<Response | void> {
     try {
       const proxyId = String(request.params.proxyId);
       const { namespace, target } = request.body;
@@ -106,13 +112,13 @@ export class ProxiesController {
     } catch (error) {
       return next(error);
     }
-  };
+  }
 
-  delete = async (
+  async delete(
     request: Request,
     response: Response,
     next: NextFunction,
-  ): Promise<Response | void> => {
+  ): Promise<Response | void> {
     try {
       const proxyId = String(request.params.proxyId);
       const proxy = await this.deleteProxyUseCase.execute(proxyId);
@@ -125,5 +131,5 @@ export class ProxiesController {
     } catch (error) {
       return next(error);
     }
-  };
+  }
 }

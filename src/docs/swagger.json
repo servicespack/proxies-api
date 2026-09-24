@@ -1,7 +1,8 @@
 {
   "openapi": "3.0.3",
   "info": {
-    "title": "Node Proxy API"
+    "title": "Proxies Service",
+    "description": "Dynamic reverse proxy management API"
   },
   "servers": [],
   "components": {
@@ -31,10 +32,31 @@
         ],
         "properties": {
           "namespace": {
-            "type": "string"
+            "type": "string",
+            "minLength": 1,
+            "pattern": "^[a-zA-Z0-9_-]+$",
+            "example": "users"
           },
           "target": {
-            "type": "string"
+            "type": "string",
+            "format": "uri",
+            "example": "https://users.yourmicroservices.dev"
+          }
+        }
+      },
+      "UpdateProxyParams": {
+        "type": "object",
+        "properties": {
+          "namespace": {
+            "type": "string",
+            "minLength": 1,
+            "pattern": "^[a-zA-Z0-9_-]+$",
+            "example": "users"
+          },
+          "target": {
+            "type": "string",
+            "format": "uri",
+            "example": "https://users.yourmicroservices.dev"
           }
         }
       },
@@ -43,12 +65,19 @@
           { "$ref": "#/components/schemas/ProxyParams" },
           {
             "type": "object",
+            "required": [
+              "id",
+              "createdAt"
+            ],
             "properties": {
               "id": {
-                "type": "string"
+                "type": "string",
+                "example": "664bbec08e4dcfefbe811345"
               },
               "createdAt": {
-                "type": "string"
+                "type": "string",
+                "format": "date-time",
+                "example": "2026-09-24T12:00:00.000Z"
               }
             }
           }
@@ -56,10 +85,31 @@
       }
     },
     "errors": {
+      "BadRequest": {
+        "type": "object",
+        "properties": {
+          "errors": {
+            "type": "array",
+            "items": {
+              "type": "object"
+            }
+          }
+        }
+      },
+      "Conflict": {
+        "type": "object",
+        "properties": {
+          "error": {
+            "type": "string",
+            "example": "Proxy with namespace 'users' already exists"
+          }
+        }
+      },
       "NotFound": {
         "type": "object",
         "properties": {
           "error": {
+            "type": "string",
             "example": "Not found"
           }
         }
@@ -68,6 +118,7 @@
         "type": "object",
         "properties": {
           "error": {
+            "type": "string",
             "example": "Unauthorized"
           }
         }
@@ -75,13 +126,24 @@
     }
   },
   "paths": {
-    "/health": {
+    "/": {
       "get": {
         "tags": ["Health"],
+        "summary": "Healthcheck / ping endpoint",
         "responses": {
           "200": {
             "content": {
-              "application/json": {}
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "I": {
+                      "type": "string",
+                      "example": "am alive"
+                    }
+                  }
+                }
+              }
             }
           }
         }
@@ -94,7 +156,14 @@
         "responses": {
           "200": {
             "content": {
-              "application/json": {}
+              "application/json": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/components/schemas/Proxy"
+                  }
+                }
+              }
             }
           },
           "401": {
@@ -130,11 +199,29 @@
               }
             }
           },
+          "400": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/errors/BadRequest"
+                }
+              }
+            }
+          },
           "401": {
             "content": {
               "application/json": {
                 "schema": {
                   "$ref": "#/components/errors/Unauthorized"
+                }
+              }
+            }
+          },
+          "409": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/errors/Conflict"
                 }
               }
             }
@@ -189,7 +276,7 @@
           "content": {
             "application/json": {
               "schema": {
-                "$ref": "#/components/schemas/ProxyParams"
+                "$ref": "#/components/schemas/UpdateProxyParams"
               }
             }
           }
@@ -200,6 +287,15 @@
               "application/json": {
                 "schema": {
                   "$ref": "#/components/schemas/Proxy"
+                }
+              }
+            }
+          },
+          "400": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/errors/BadRequest"
                 }
               }
             }
@@ -218,6 +314,15 @@
               "application/json": {
                 "schema": {
                   "$ref": "#/components/errors/NotFound"
+                }
+              }
+            }
+          },
+          "409": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/errors/Conflict"
                 }
               }
             }

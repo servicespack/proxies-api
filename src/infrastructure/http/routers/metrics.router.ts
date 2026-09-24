@@ -12,7 +12,7 @@ if (ENABLE_METRICS_ROUTER === 'true') {
   router
     .get('/', async (_request, response) => {
       const metrics = await register.metrics();
-      return response.json(metrics);
+      return response.setHeader('Content-Type', register.contentType).send(metrics);
     });
 }
 

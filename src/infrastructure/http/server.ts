@@ -11,6 +11,18 @@ import { resolveProxyTargetUseCase, router } from './router.js';
 
 import { logger } from '@/config/logger.js';
 
+export function sanitizeLogRequest(req: Record<string, unknown>): Record<string, unknown> {
+  const serialized = { ...req };
+  if (typeof serialized.url === 'string') {
+    serialized.url = serialized.url.replace(/([?&])token=[^&]+/, '$1token=***');
+  }
+  if (serialized.query && typeof serialized.query === 'object') {
+    const { token: _token, ...restQuery } = serialized.query as Record<string, unknown>;
+    serialized.query = restQuery;
+  }
+  return serialized;
+}
+
 const app = express();
 
 app.use(cors());
@@ -18,14 +30,9 @@ app.use(express.json());
 app.use(helmet());
 app.use(pino({
   logger,
-  redact: ['req.headers.authorization'],
+  redact: ['req.headers.authorization', 'req.query.token'],
   serializers: {
-    req(req) {
-      if (req.url) {
-        req.url = req.url.replace(/([?&])token=[^&]+/, '$1token=***');
-      }
-      return req;
-    },
+    req: sanitizeLogRequest,
   },
 }));
 

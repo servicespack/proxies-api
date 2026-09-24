@@ -1,4 +1,7 @@
 import { MongoClient } from 'mongodb';
+import {
+  describe, it, expect, vi, beforeEach, afterEach,
+} from 'vitest';
 
 import { disconnectDatabase } from '@/config/database.js';
 import {
@@ -15,7 +18,7 @@ vi.mock('mongodb', () => {
   const mockConnect = vi.fn().mockResolvedValue(undefined);
   const mockClose = vi.fn().mockResolvedValue(undefined);
 
-  const MockMongoClient = vi.fn(function MockMongoClient(uri) {
+  const MockMongoClient = vi.fn(function MockMongoClient(this: any, uri: string) {
     this.uri = uri;
     this.connect = mockConnect;
     this.close = mockClose;

@@ -1,3 +1,7 @@
+import {
+  describe, it, expect, afterEach,
+} from 'vitest';
+
 import { LowDbProxyRepository } from '@/infrastructure/database/lowdb/repositories/lowdb-proxy.repository.js';
 import { MongoDbProxyRepository } from '@/infrastructure/database/mongodb/repositories/mongodb-proxy.repository.js';
 import { createProxyRepository } from '@/infrastructure/database/proxy-repository.factory.js';

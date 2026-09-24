@@ -1,16 +1,21 @@
 import { faker } from '@faker-js/faker';
+import type { Collection } from 'mongodb';
+import {
+  describe, it, expect, beforeAll, afterAll, beforeEach,
+} from 'vitest';
 
-import { clearMongoDb, setupMongoMemory, teardownMongoMemory } from './helpers/load-mongo.js';
+import { clearMongoDb, setupMongoMemory, teardownMongoMemory } from '../../../../../test/helpers/load-mongo.js';
 
 import { getMongoDb } from '@/config/mongodb.js';
 import { ProxyEntity } from '@/domain/entities/proxy.entity.js';
+import type { MongoProxyDocument } from '@/infrastructure/database/mongodb/repositories/mongodb-proxy.repository.js';
 import { MongoDbProxyRepository } from '@/infrastructure/database/mongodb/repositories/mongodb-proxy.repository.js';
 
+// We need to resolve the path relative to the new location or use an alias if configured
+// The load-mongo helper is at the root `test/` directory.
+
 describe('MongoDbProxyRepository (in-memory)', () => {
-  /**
-   * @type {MongoDbProxyRepository}
-   */
-  let repository;
+  let repository: MongoDbProxyRepository;
 
   beforeAll(async () => {
     await setupMongoMemory();
@@ -22,7 +27,7 @@ describe('MongoDbProxyRepository (in-memory)', () => {
 
   beforeEach(async () => {
     await clearMongoDb();
-    const collection = getMongoDb().collection('proxies');
+    const collection = getMongoDb().collection('proxies') as Collection<MongoProxyDocument>;
     repository = new MongoDbProxyRepository(collection);
   });
 

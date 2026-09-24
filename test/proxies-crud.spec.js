@@ -84,25 +84,20 @@ describe('Proxies CRUD', () => {
       });
     });
 
-    it('Should return status code 201 when authenticated via Authorization header', async () => {
+    it('Should return status code 409 when creating a proxy with an existing namespace', async () => {
       const namespace = faker.internet.domainWord();
       const target = faker.internet.url();
 
-      const { body, status } = await request(server)
-        .post('/proxies')
-        .set('Authorization', `Bearer ${process.env.TOKEN}`)
-        .send({
-          namespace,
-          target,
-        });
+      await request(server)
+        .post(`/proxies?token=${process.env.TOKEN}`)
+        .send({ namespace, target });
 
-      expect(status).toBe(201);
-      expect(body).toEqual({
-        id: expect.any(String),
-        namespace,
-        target,
-        createdAt: expect.any(String),
-      });
+      const { body, status } = await request(server)
+        .post(`/proxies?token=${process.env.TOKEN}`)
+        .send({ namespace, target: faker.internet.url() });
+
+      expect(status).toBe(409);
+      expect(body).toEqual({ error: `Proxy with namespace '${namespace}' already exists` });
     });
 
     it('Should return status code 401 when server TOKEN is not configured', async () => {
@@ -182,6 +177,27 @@ describe('Proxies CRUD', () => {
 
       expect(status).toBe(200);
       expect(body).toMatchObject({ id: createdProxy.id, namespace, target: newTarget });
+    });
+
+    it('Should return status code 409 when updating a proxy with an existing namespace', async () => {
+      const namespace1 = faker.internet.domainWord();
+      const namespace2 = faker.internet.domainWord();
+      const target = faker.internet.url();
+
+      await request(server)
+        .post(`/proxies?token=${process.env.TOKEN}`)
+        .send({ namespace: namespace1, target });
+
+      const { body: createdProxy2 } = await request(server)
+        .post(`/proxies?token=${process.env.TOKEN}`)
+        .send({ namespace: namespace2, target });
+
+      const { body, status } = await request(server)
+        .patch(`/proxies/${createdProxy2.id}?token=${process.env.TOKEN}`)
+        .send({ namespace: namespace1 });
+
+      expect(status).toBe(409);
+      expect(body).toEqual({ error: `Proxy with namespace '${namespace1}' already exists` });
     });
 
     it('Should return status code 404 when proxy is not found', async () => {

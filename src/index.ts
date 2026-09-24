@@ -1,4 +1,4 @@
-import { logger } from '@/config/index.js';
+import { disconnectDatabase, logger } from '@/config/index.js';
 import { server } from '@/infrastructure/http/server.js';
 import { setupGracefulShutdown } from '@/infrastructure/process/graceful-shutdown.js';
 
@@ -25,6 +25,7 @@ async function main() {
         server.closeAllConnections();
       }, 5000);
     }),
+    disconnectDatabase,
   ]);
 }
 

@@ -8,13 +8,16 @@ Instructions for AI agents working in `proxies-service`.
   - `src/domain/`: Core entities and repository/event bus interfaces (dependency-free).
   - `src/application/`: Application business logic, use cases (`src/application/use-cases/proxies/`), and DTO interfaces.
   - `src/adapters/`: Interface adapters (`ProxiesController`, `auth.middleware.ts`, `validation.middleware.ts`, `ProxiesValidator`, `NodeProxyEventBus`).
-  - `src/config/`: Application configuration, logger (`logger.ts`), and database initialization (`database.ts`).
+  - `src/config/`: Application configuration, logger (`logger.ts`), database initialization (`database.ts`), and MongoDB client (`mongodb.ts`).
   - `src/infrastructure/`: Frameworks, drivers, and external adapters:
     - `database/lowdb/`: LowDB repository implementation (`LowDbProxyRepository`).
+    - `database/mongodb/`: MongoDB repository implementation (`MongoDbProxyRepository`).
     - `http/`: Express setup (`server.ts`), router composition root (`router.ts`), and route handlers (`routers/`).
     - `events/`: Global EventEmitter instance (`ProxiesEmitter`).
   - `src/docs/`: OpenAPI / Swagger specification (`swagger.json`).
-- **Persistence**: File-based via `lowdb` writing to `config.json` at root directory (gitignored). Initialized in `src/config/database.ts`.
+- **Persistence**: Configurable via `DATABASE_DRIVER` environment variable:
+  - `lowdb` (default): File-based via `lowdb` writing to `config.json` at root directory (gitignored). Initialized in `src/config/database.ts`.
+  - `mongodb`: Document-based via official `mongodb` driver. Configured with `MONGODB_URI` and `MONGODB_DATABASE`. Initialized in `src/config/mongodb.ts`.
 - **Proxy Routing**: Express dynamically dispatches `/:namespace` routes to targets via `express-http-proxy` after static and management routes (`/`, `/docs`, `/metrics`, `/proxies`). Unmatched namespaces return 404.
 
 ## Critical Quirks

@@ -14,12 +14,17 @@ import { GetProxyUseCase } from '@/application/use-cases/proxies/get-proxy.use-c
 import { ListProxiesUseCase } from '@/application/use-cases/proxies/list-proxies.use-case.js';
 import { ResolveProxyTargetUseCase } from '@/application/use-cases/proxies/resolve-proxy-target.use-case.js';
 import { UpdateProxyUseCase } from '@/application/use-cases/proxies/update-proxy.use-case.js';
-import { LowDbProxyRepository } from '@/infrastructure/database/lowdb/repositories/lowdb-proxy.repository.js';
+import { connectMongo } from '@/config/mongodb.js';
+import { createProxyRepository } from '@/infrastructure/database/proxy-repository.factory.js';
 import { ProxiesEmitter } from '@/infrastructure/events/proxies.emitter.js';
 
-const { ENABLE_PROXIES_CRUD = 'true', TOKEN } = process.env;
+const { DATABASE_DRIVER, ENABLE_PROXIES_CRUD = 'true', TOKEN } = process.env;
 
-const proxyRepository = new LowDbProxyRepository();
+if (DATABASE_DRIVER === 'mongodb') {
+  await connectMongo();
+}
+
+const proxyRepository = createProxyRepository();
 const proxyEventBus = new NodeProxyEventBus(ProxiesEmitter.emitter);
 
 const proxiesController = new ProxiesController({

@@ -9,6 +9,7 @@ describe('Healthcheck', () => {
   let server;
 
   beforeEach(async () => {
+    process.env.TOKEN = 'dummy-token-for-test';
     server = await loadServer();
   });
 

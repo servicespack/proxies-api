@@ -46,4 +46,14 @@ describe('Proxies', () => {
       id: expect.any(String),
     });
   });
+
+  it('should return 404 when namespace is not found', async () => {
+    const { status, body } = await request(server)
+      .get('/nonexistent-namespace/some-path');
+
+    expect(status).toBe(404);
+    expect(body).toEqual({
+      error: 'Namespace not found',
+    });
+  });
 });

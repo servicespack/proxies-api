@@ -23,6 +23,8 @@ Start the service using Docker:
 ```sh
 docker container run \
   -p 3000:3000 \
+  -v "proxies-service-data:/usr/src/app/data" \
+  -e CONFIG_PATH=/usr/src/app/data/config.json \
   -e TOKEN=your-secret-token \
   -e NODE_ENV=production \
   --name proxies-service \

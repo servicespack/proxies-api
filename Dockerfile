@@ -20,7 +20,8 @@ WORKDIR /usr/src/app
 
 ENV NODE_ENV=production
 
-RUN chown -R node:node /usr/src/app
+RUN mkdir -p /usr/src/app/data && \
+    chown -R node:node /usr/src/app
 
 USER node
 
